@@ -1,6 +1,48 @@
+import { useState } from 'react'
+import Academy from './Pages/Academy'
 import './App.css'
 
 function App() {
+  const [showAcademy, setShowAcademy] = useState(false)
+
+  if (showAcademy) {
+    return (
+      <div className="app">
+        <Academy />
+
+        <nav className="bottom-nav">
+          <button
+            className="nav-item"
+            onClick={() => setShowAcademy(false)}
+          >
+            <span>⌂</span>
+            <small>Home</small>
+          </button>
+
+          <button className="nav-item active">
+            <span>🥋</span>
+            <small>Academy</small>
+          </button>
+
+          <button className="nav-item">
+            <span>⚡</span>
+            <small>Reflex</small>
+          </button>
+
+          <button className="nav-item">
+            <span>🎯</span>
+            <small>Reaction</small>
+          </button>
+
+          <button className="nav-item">
+            <span>📊</span>
+            <small>Statistiche</small>
+          </button>
+        </nav>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <header className="top-bar">
@@ -30,7 +72,10 @@ function App() {
               e misura la velocità delle tue reazioni.
             </p>
 
-            <button className="primary-button">
+            <button
+              className="primary-button"
+              onClick={() => setShowAcademy(true)}
+            >
               INIZIA AD ALLENARTI
               <span>→</span>
             </button>
@@ -46,31 +91,42 @@ function App() {
           <div className="training-grid">
             <div className="training-card academy-card">
               <div className="card-icon">🥋</div>
+
               <h3>ACADEMY</h3>
+
               <p>
                 Impara le tecniche attraverso immagini,
                 spiegazioni e allenamento guidato.
               </p>
-              <button>ENTRA →</button>
+
+              <button onClick={() => setShowAcademy(true)}>
+                ENTRA →
+              </button>
             </div>
 
             <div className="training-card reflex-card">
               <div className="card-icon">⚡</div>
+
               <h3>REFLEX TRAINING</h3>
+
               <p>
                 Ascolta il comando e reagisci eseguendo
                 la tecnica il più velocemente possibile.
               </p>
+
               <button>ALLENA →</button>
             </div>
 
             <div className="training-card reaction-card">
               <div className="card-icon">🎯</div>
+
               <h3>REACTION TEST</h3>
+
               <p>
                 Rispondi allo stimolo BOX e misura
                 il tuo tempo di reazione in millisecondi.
               </p>
+
               <button>TESTA →</button>
             </div>
           </div>
@@ -100,7 +156,10 @@ function App() {
           <small>Home</small>
         </button>
 
-        <button className="nav-item">
+        <button
+          className="nav-item"
+          onClick={() => setShowAcademy(true)}
+        >
           <span>🥋</span>
           <small>Academy</small>
         </button>
