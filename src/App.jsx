@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logoImg from './assets/logo.JPG'
 import Academy from './Pages/Academy'
 import './App.css'
 
@@ -59,6 +60,7 @@ function App() {
       <main>
         <section className="hero-section">
           <div className="hero-content">
+            <img src={logoImg} alt="REFLEX" className="home-logo" />
             <p className="eyebrow">REFLEX TRAINING SYSTEM</p>
 
             <h1>

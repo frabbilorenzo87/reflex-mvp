@@ -19,75 +19,7 @@ const categories = [
       }
     ]
   },
-  {
-    title: 'SPOSTAMENTO',
-    image: spostamentoImg,
-    techniques: [
-      {
-        name: 'Passo avanti',
-        description:
-          'Avanzamento controllato mantenendo equilibrio e posizione di guardia.'
-      },
-      {
-        name: 'Passo indietro',
-        description:
-          'Arretramento rapido mantenendo equilibrio e protezione.'
-      }
-    ]
-  },
-  {
-    title: 'DIRETTO',
-    image: direttoImg,
-    techniques: [
-      {
-        name: 'Diretto sinistro',
-        description:
-          'Colpo diretto eseguito con la mano sinistra.'
-      },
-      {
-        name: 'Diretto destro',
-        description:
-          'Colpo diretto eseguito con la mano destra.'
-      }
-    ]
-  },
-  {
-    title: 'GANCIO',
-    image: gancioImg,
-    techniques: [
-      {
-        name: 'Gancio sinistro',
-        description:
-          'Colpo circolare eseguito con il braccio sinistro.'
-      },
-      {
-        name: 'Gancio destro',
-        description:
-          'Colpo circolare eseguito con il braccio destro.'
-      }
-    ]
-  },
-  {
-    title: 'CALCIO CENTRALE E LATERALE',
-    image: calcioImg,
-    techniques: [
-      {
-        name: 'Calcio sinistro',
-        description:
-          'Calcio eseguito con la gamba sinistra.'
-      },
-      {
-        name: 'Calcio destro',
-        description:
-          'Calcio eseguito con la gamba destra.'
-      },
-      {
-        name: 'Calcio frontale',
-        description:
-          'Calcio frontale diretto verso il bersaglio.'
-      }
-    ]
-  },
+
   {
     title: 'COVER E PARATA ALTA',
     image: coverImg,
@@ -106,6 +38,79 @@ const categories = [
         name: 'Parata due mani',
         description:
           'Protezione alta eseguita utilizzando entrambe le mani.'
+      }
+    ]
+  },
+
+  {
+    title: 'SPOSTAMENTO',
+    image: spostamentoImg,
+    techniques: [
+      {
+        name: 'Passo avanti',
+        description:
+          'Avanzamento controllato mantenendo equilibrio e posizione di guardia.'
+      },
+      {
+        name: 'Passo indietro',
+        description:
+          'Arretramento rapido mantenendo equilibrio e protezione.'
+      }
+    ]
+  },
+
+  {
+    title: 'DIRETTO',
+    image: direttoImg,
+    techniques: [
+      {
+        name: 'Diretto sinistro',
+        description:
+          'Colpo diretto eseguito con la mano sinistra.'
+      },
+      {
+        name: 'Diretto destro',
+        description:
+          'Colpo diretto eseguito con la mano destra.'
+      }
+    ]
+  },
+
+  {
+    title: 'GANCIO',
+    image: gancioImg,
+    techniques: [
+      {
+        name: 'Gancio sinistro',
+        description:
+          'Colpo circolare eseguito con il braccio sinistro.'
+      },
+      {
+        name: 'Gancio destro',
+        description:
+          'Colpo circolare eseguito con il braccio destro.'
+      }
+    ]
+  },
+
+  {
+    title: 'CALCIO CENTRALE E LATERALE',
+    image: calcioImg,
+    techniques: [
+      {
+        name: 'Calcio sinistro',
+        description:
+          'Calcio eseguito con la gamba sinistra.'
+      },
+      {
+        name: 'Calcio destro',
+        description:
+          'Calcio eseguito con la gamba destra.'
+      },
+      {
+        name: 'Calcio frontale',
+        description:
+          'Calcio frontale diretto verso il bersaglio.'
       }
     ]
   }
