@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logoImg from './assets/logo.JPG'
 import Academy from './Pages/Academy'
 import './App.css'
 
 function App() {
   const [showAcademy, setShowAcademy] = useState(false)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [showAcademy])
 
   if (showAcademy) {
     return (
