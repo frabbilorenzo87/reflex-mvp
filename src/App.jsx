@@ -12,38 +12,37 @@ function App() {
         <Academy />
 
         <nav className="bottom-nav">
-          <button
-            className="nav-item"
-            onClick={() => setShowAcademy(false)}
-          >
-            <span>⌂</span>
-            <small>Home</small>
-          </button>
+  <button
+    className="nav-item"
+    onClick={() => setShowAcademy(false)}
+  >
+    <span>🏠</span>
+    <small>Home</small>
+  </button>
 
-          <button className="nav-item active">
-            <span>🥋</span>
-            <small>Academy</small>
-          </button>
+  <button className="nav-item active">
+    <span>🛡️</span>
+    <small>Academy</small>
+  </button>
 
-          <button className="nav-item">
-            <span>⚡</span>
-            <small>Reflex</small>
-          </button>
+  <button className="nav-item">
+    <span>⚡</span>
+    <small>Reflex</small>
+  </button>
 
-          <button className="nav-item">
-            <span>🎯</span>
-            <small>Reaction</small>
-          </button>
+  <button className="nav-item">
+    <span>⏱️</span>
+    <small>Reaction</small>
+  </button>
 
-          <button className="nav-item">
-            <span>📊</span>
-            <small>Statistiche</small>
-          </button>
-        </nav>
-      </div>
+  <button className="nav-item">
+    <span>📊</span>
+    <small>Statistiche</small>
+  </button>
+</nav>
+ </div>
     )
   }
-
   return (
     <div className="app">
       <header className="top-bar">
@@ -154,7 +153,7 @@ function App() {
 
       <nav className="bottom-nav">
         <button className="nav-item active">
-          <span>⌂</span>
+          <span>🏠</span>
           <small>Home</small>
         </button>
 
@@ -162,7 +161,7 @@ function App() {
           className="nav-item"
           onClick={() => setShowAcademy(true)}
         >
-          <span>🥋</span>
+          <span>🛡️</span>
           <small>Academy</small>
         </button>
 
@@ -172,7 +171,7 @@ function App() {
         </button>
 
         <button className="nav-item">
-          <span>🎯</span>
+          <span>⏱️</span>
           <small>Reaction</small>
         </button>
 

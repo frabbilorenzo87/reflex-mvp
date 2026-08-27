@@ -265,7 +265,9 @@ h1 span {
   justify-content: center;
   gap: 5px;
 }
-
+.nav-item.active {
+  color: #e10600;
+}
 .nav-item span {
   font-size: 20px;
 }
@@ -276,7 +278,7 @@ h1 span {
 }
 
 .nav-item.active {
-  color: #e7ff00;
+  color: #e10600;
 }
 
 @media (max-width: 800px) {
