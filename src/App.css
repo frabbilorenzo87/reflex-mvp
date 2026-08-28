@@ -636,7 +636,7 @@ h1 span {
 .technique-detail-images .technique-detail-image {
   width: 180px;
   height: 240px;
-  object-fit: cover;
+  object-fit: contain;
   flex-shrink: 0;
   border-radius: 8px;
 }
