@@ -229,7 +229,63 @@ const categories = [
 
 function Academy() {
   const [selectedTechnique, setSelectedTechnique] = useState(null)
+  const [playingStep, setPlayingStep] = useState(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentAudio, setCurrentAudio] = useState(null)
+  const stopCurrentAudio = () => {
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio.currentTime = 0
+    setCurrentAudio(null)
+  }
 
+  setIsPlaying(false)
+  setPlayingStep(null)
+}
+const playTechniqueAudio = () => {
+  if (selectedTechnique?.name !== 'Guardia') return
+
+  stopCurrentAudio()
+
+  setIsPlaying(true)
+  setPlayingStep(0)
+
+  const audioFiles = [
+    '/guardia.mp3',
+    '/guardia-1.mp3',
+    '/guardia-2.mp3',
+    '/guardia-3.mp3',
+    '/guardia-4.mp3',
+    '/guardia-5.mp3'
+  ]
+
+  let currentIndex = 0
+  let audio = null
+
+  const playNext = () => {
+    if (currentIndex >= audioFiles.length) {
+      setPlayingStep(null)
+      setIsPlaying(false)
+      setCurrentAudio(null)
+      return
+    }
+
+    setPlayingStep(currentIndex)
+
+    audio = new Audio(audioFiles[currentIndex])
+    setCurrentAudio(audio)
+    audio.currentTime = 0
+
+    audio.onended = () => {
+      currentIndex += 1
+      playNext()
+    }
+
+    audio.play()
+  }
+
+  playNext()
+}
   return (
     <main className="academy-page">
       <header className="academy-header">
@@ -313,25 +369,97 @@ function Academy() {
 
               <h2>{selectedTechnique.name}</h2>
 
-              {selectedTechnique.steps && (
+             {selectedTechnique.steps && (
   <div className="technique-steps">
     <h3>COME ESEGUIRLA</h3>
 
-    <ol>
-      {selectedTechnique.steps.map((step, index) => (
-        <li key={index}>{step}</li>
-      ))}
-    </ol>
+   <ol>
+  {selectedTechnique.steps.map((step, index) => (
+   <li
+  key={index}
+  style={{
+    fontWeight:
+      selectedTechnique.name === 'Guardia' &&
+      playingStep === index + 1
+        ? '700'
+        : '400',
+
+    background:
+      selectedTechnique.name === 'Guardia' &&
+      playingStep === index + 1
+        ? '#e10600'
+        : 'transparent',
+
+    borderRadius: '10px',
+    padding: '10px',
+    transition: 'all 0.2s ease'
+  }}
+>
+      <span>{step}</span>
+
+      {selectedTechnique.name === 'Guardia' && (
+        <button
+          type="button"
+          onClick={() => {
+  stopCurrentAudio()
+
+  const audio = new Audio(`/guardia-${index + 1}.mp3`)
+  audio.currentTime = 0
+
+  setCurrentAudio(audio)
+  setPlayingStep(index + 1)
+
+  audio.play()
+}}
+          style={{
+            marginLeft: '10px',
+            cursor: 'pointer',
+            border: 'none',
+            background: 'transparent',
+            fontSize: '20px'
+          }}
+        >
+          🔊
+        </button>
+      )}
+    </li>
+  ))}
+</ol>
   </div>
 )}
 
-              <div className="video-placeholder">
-                <span>▶</span>
-                <strong>VIDEO TECNICA</strong>
-                <small>
-                  Il video verrà aggiunto qui
-                </small>
-              </div>
+{isPlaying ? (
+  <button
+    className="learn-technique-button"
+    type="button"
+    onClick={() => {
+      if (currentAudio) {
+        currentAudio.pause()
+        currentAudio.currentTime = 0
+      }
+
+      setCurrentAudio(null)
+      setIsPlaying(false)
+      setPlayingStep(null)
+    }}
+  >
+    <span>⏹️</span>
+    <strong>FERMA GUIDA</strong>
+    <small>Interrompi la guida</small>
+  </button>
+) : (
+  <button
+    className="learn-technique-button"
+    type="button"
+    onClick={playTechniqueAudio}
+  >
+    <span>🔊</span>
+    <strong>IMPARA TECNICA</strong>
+    <small>Ascolta la guida e segui i passaggi</small>
+  </button>
+)}
+
+              
             </div>
           </div>
         </div>
