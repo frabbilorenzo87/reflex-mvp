@@ -692,3 +692,15 @@ h1 span {
   object-fit: contain;
   border-radius: 8px;
 }
+.reflex-duration-options button.selected-duration {
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ff0000 !important;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+}
+.reflex-level-options button.selected-level {
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ff0000 !important;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+}

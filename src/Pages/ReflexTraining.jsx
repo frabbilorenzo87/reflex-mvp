@@ -1,8 +1,158 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function ReflexTraining({ onHome, onAcademy }) {
   const [duration, setDuration] = useState(null)
   const [level, setLevel] = useState(null)
+  const [isTraining, setIsTraining] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(0)
+  const [isPreparing, setIsPreparing] = useState(false)
+const [countdown, setCountdown] = useState(5)
+const [showGo, setShowGo] = useState(false)
+const [currentCommand, setCurrentCommand] = useState(null)
+const commands = [
+  'passo avanti',
+  'passo indietro',
+  'guardia',
+  'diretto sinistro',
+  'diretto destro',
+  'gancio sinistro',
+  'gancio destro',
+  'calcio sinistro',
+  'calcio destro',
+  'parata sinistra',
+  'parata destra',
+  'parata a due mani',
+]
+const getRandomCommand = () => {
+  const randomIndex = Math.floor(Math.random() * commands.length)
+  return commands[randomIndex]
+  
+}
+  useEffect(() => {
+  if (!isPreparing) return
+
+  if (countdown === 0) {
+    setIsPreparing(false)
+    setShowGo(true)
+    return
+  }
+
+  const timer = setTimeout(() => {
+    setCountdown((previous) => previous - 1)
+  }, 1000)
+
+  return () => clearTimeout(timer)
+}, [isPreparing, countdown])
+
+useEffect(() => {
+  if (!showGo) return
+
+  const goTimer = setTimeout(() => {
+  setTimeLeft(duration * 60)
+  setCurrentCommand(getRandomCommand())
+  setShowGo(false)
+  setIsTraining(true)
+}, 1000)
+  return () => clearTimeout(goTimer)
+}, [showGo])
+useEffect(() => {
+  if (!isTraining) return
+
+  const interval = setInterval(() => {
+    setTimeLeft((previous) => {
+      if (previous <= 1) {
+        clearInterval(interval)
+        setIsTraining(false)
+        return 0
+      }
+
+      return previous - 1
+    })
+  }, 1000)
+
+  return () => clearInterval(interval)
+}, [isTraining])
+useEffect(() => {
+  if (!isTraining) return
+
+  const intervalSeconds =
+    level === 'principiante'
+      ? 5
+      : level === 'intermedio'
+        ? 4
+        : 3
+
+  const interval = setInterval(() => {
+    setCurrentCommand(getRandomCommand())
+  }, intervalSeconds * 1000)
+
+  return () => clearInterval(interval)
+}, [isTraining, level])
+if (isPreparing) {
+  return (
+    <main className="reflex-training-page">
+      <header className="academy-header">
+        <p className="eyebrow">REFLEX TRAINING</p>
+
+        <h1>PREPARATI</h1>
+
+        <div>
+          <strong>{countdown}</strong>
+        </div>
+
+        <p>Preparati... si parte!</p>
+      </header>
+    </main>
+  )
+}
+if (showGo) {
+  return (
+    <main className="reflex-training-page">
+      <header className="academy-header">
+        <p className="eyebrow">REFLEX TRAINING</p>
+
+        <h1>GUARDIA!</h1>
+
+        <p>Preparati alla prima tecnica!</p>
+      </header>
+    </main>
+  )
+}
+  if (isTraining) {
+  return (
+    <main className="reflex-training-page">
+      <header className="academy-header">
+        <p className="eyebrow">REFLEX TRAINING</p>
+
+        <h1>SESSIONE IN CORSO</h1>
+
+        <p>
+          Durata: {duration} minuti · Livello: {level}
+        </p>
+      </header>
+
+      <section className="reflex-options">
+        <h2>ALLENAMENTO ATTIVO</h2>
+        <p>COMANDO</p>
+
+<strong>{currentCommand}</strong>
+        <div>
+  <strong>
+    {Math.floor(timeLeft / 60)}:
+    {String(timeLeft % 60).padStart(2, '0')}
+  </strong>
+</div>
+
+        <button
+          type="button"
+          onClick={() => setIsTraining(false)}
+        >
+          ⏹ TERMINA ALLENAMENTO
+        </button>
+      </section>
+    </main>
+  )
+}
 
   return (
     <main className="reflex-training-page">
@@ -18,10 +168,12 @@ function ReflexTraining({ onHome, onAcademy }) {
 
       <section className="reflex-options">
         <h2>DURATA</h2>
+       
 
         <div className="reflex-duration-options">
           <button
   type="button"
+  className={duration === 3 ? 'selected-duration' : ''}
   onClick={() => setDuration(3)}
 >
   <strong>3 MINUTI</strong>
@@ -30,6 +182,7 @@ function ReflexTraining({ onHome, onAcademy }) {
 
           <button
   type="button"
+  className={duration === 5 ? 'selected-duration' : ''}
   onClick={() => setDuration(5)}
 >
   <strong>5 MINUTI</strong>
@@ -38,6 +191,7 @@ function ReflexTraining({ onHome, onAcademy }) {
 
           <button
   type="button"
+  className={duration === 7 ? 'selected-duration' : ''}
   onClick={() => setDuration(7)}
 >
   <strong>7 MINUTI</strong>
@@ -51,6 +205,7 @@ function ReflexTraining({ onHome, onAcademy }) {
         <div className="reflex-level-options">
           <button
   type="button"
+  className={level === 'principiante' ? 'selected-level' : ''}
   onClick={() => setLevel('principiante')}
 >
   <strong>PRINCIPIANTE</strong>
@@ -59,6 +214,7 @@ function ReflexTraining({ onHome, onAcademy }) {
 
           <button
   type="button"
+  className={level === 'intermedio' ? 'selected-level' : ''}
   onClick={() => setLevel('intermedio')}
 >
   <strong>INTERMEDIO</strong>
@@ -67,6 +223,7 @@ function ReflexTraining({ onHome, onAcademy }) {
 
           <button
   type="button"
+  className={level === 'avanzato' ? 'selected-level' : ''}
   onClick={() => setLevel('avanzato')}
 >
   <strong>AVANZATO</strong>
@@ -74,6 +231,16 @@ function ReflexTraining({ onHome, onAcademy }) {
 </button>
         </div>
       </section>
+      <button
+  type="button"
+  disabled={!duration || !level}
+  onClick={() => {
+  setCountdown(5)
+  setIsPreparing(true)
+}}
+>
+  ▶️ AVVIA ALLENAMENTO
+</button>
       <button
         type="button"
         onClick={onHome}
