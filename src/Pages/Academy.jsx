@@ -243,14 +243,18 @@ function Academy() {
   setPlayingStep(null)
 }
 const playTechniqueAudio = () => {
-  if (selectedTechnique?.name !== 'Guardia') return
+ if (!selectedTechnique) return
 
   stopCurrentAudio()
+ 
 
   setIsPlaying(true)
   setPlayingStep(0)
 
-  const audioFiles = [
+  let audioFiles = []
+
+if (selectedTechnique?.name === 'Guardia') {
+  audioFiles = [
     '/guardia.mp3',
     '/guardia-1.mp3',
     '/guardia-2.mp3',
@@ -258,7 +262,219 @@ const playTechniqueAudio = () => {
     '/guardia-4.mp3',
     '/guardia-5.mp3'
   ]
+}
 
+if (selectedTechnique?.name === 'Parata sinistra') {
+
+  audioFiles = [
+
+    '/cover.mp3',
+
+    '/cover-1.mp3',
+
+    '/coversx-2.mp3',
+
+    '/coversx-3.mp3',
+
+    '/cover-4.mp3',
+
+    '/coversx-5.mp3'
+
+  ]
+
+
+}if (selectedTechnique?.name === 'Parata destra') {
+
+  audioFiles = [
+
+    '/cover.mp3',
+
+    '/cover-1.mp3',
+
+    '/coverdx-2.mp3',
+
+    '/coverdx-3.mp3',
+
+    '/cover-4.mp3',
+
+    '/coverdx-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Parata due mani') {
+
+  audioFiles = [
+
+    '/cover.mp3',
+
+    '/cover2-1.mp3',
+
+    '/cover2-2.mp3',
+
+    '/cover2-3.mp3',
+
+    '/cover2-4.mp3',
+
+    '/cover2-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Passo avanti') {
+
+  audioFiles = [
+
+    '/spostamento.mp3',
+
+    '/spostamento-1.mp3',
+
+    '/spostamentoav-2.mp3',
+
+    '/spostamentoav-3.mp3',
+
+    '/spostamento-4.mp3',
+
+    '/spostamento-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Passo indietro') {
+
+  audioFiles = [
+
+    '/spostamento.mp3',
+
+    '/spostamento-1.mp3',
+
+    '/spostamentoind-2.mp3',
+
+    '/spostamentoind-3.mp3',
+
+    '/spostamento-4.mp3',
+
+    '/spostamento-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Diretto sinistro') {
+
+  audioFiles = [
+
+    '/diretto.mp3',
+
+    '/direttosx-1.mp3',
+
+    '/diretto-2.mp3',
+
+    '/direttosx-3.mp3',
+
+    '/direttosx-4.mp3',
+
+    '/direttosx-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Diretto destro') {
+
+  audioFiles = [
+
+    '/diretto.mp3',
+
+    '/direttodx-1.mp3',
+
+    '/diretto-2.mp3',
+
+    '/direttodx-3.mp3',
+
+    '/direttodx-4.mp3',
+
+    '/direttodx-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Gancio sinistro') {
+
+  audioFiles = [
+
+    '/gancio.mp3',
+
+    '/gancio-1.mp3',
+
+    '/gancio-2.mp3',
+
+    '/ganciosx-3.mp3',
+
+    '/ganciosx-4.mp3',
+
+    '/ganciosx-5.mp3'
+
+  ]
+
+}
+
+if (selectedTechnique?.name === 'Gancio destro') {
+
+  audioFiles = [
+
+    '/gancio.mp3',
+
+    '/gancio-1.mp3',
+
+    '/gancio-2.mp3',
+
+    '/ganciodx-3.mp3',
+
+    '/ganciodx-4.mp3',
+
+    '/ganciodx-5.mp3'
+
+  ]
+
+}
+if (selectedTechnique?.name === 'Calcio sinistro') {
+
+  audioFiles = [
+
+    '/calci.mp3',
+
+    '/calci-1.mp3',
+
+    '/calcisx-2.mp3',
+
+    '/calcisx-3.mp3',
+
+    '/calci-4.mp3',
+
+    '/calci-5.mp3'
+
+  ]
+
+}
+
+if (selectedTechnique?.name === 'Calcio destro') {
+
+  audioFiles = [
+
+    '/calci.mp3',
+
+    '/calci-1.mp3',
+
+    '/calcidx-2.mp3',
+
+    '/calcidx-3.mp3',
+
+    '/calci-4.mp3',
+
+    '/calci-5.mp3'
+
+  ]
+
+}
   let currentIndex = 0
   let audio = null
 
@@ -281,7 +497,9 @@ const playTechniqueAudio = () => {
       playNext()
     }
 
-    audio.play()
+    audio.play().catch(error => {
+  console.error('Errore riproduzione audio:', error)
+})
   }
 
   playNext()
@@ -379,13 +597,35 @@ const playTechniqueAudio = () => {
   key={index}
   style={{
     fontWeight:
-      selectedTechnique.name === 'Guardia' &&
+      (
+        selectedTechnique.name === 'Guardia' ||
+        selectedTechnique.name === 'Parata sinistra' ||
+        selectedTechnique.name === 'Parata destra' ||
+        selectedTechnique.name === 'Parata due mani' ||
+        selectedTechnique.name === 'Passo avanti' ||
+        selectedTechnique.name === 'Passo indietro' ||
+        selectedTechnique.name === 'Diretto sinistro' ||
+        selectedTechnique.name === 'Diretto destro' ||
+        selectedTechnique.name === 'Gancio sinistro' ||
+        selectedTechnique.name === 'Gancio destro'
+      ) &&
       playingStep === index + 1
         ? '700'
         : '400',
 
     background:
-      selectedTechnique.name === 'Guardia' &&
+      (
+        selectedTechnique.name === 'Guardia' ||
+        selectedTechnique.name === 'Parata sinistra' ||
+        selectedTechnique.name === 'Parata destra' ||
+        selectedTechnique.name === 'Parata due mani' ||
+        selectedTechnique.name === 'Passo avanti' ||
+        selectedTechnique.name === 'Passo indietro' ||
+        selectedTechnique.name === 'Diretto sinistro' ||
+        selectedTechnique.name === 'Diretto destro' ||
+        selectedTechnique.name === 'Gancio sinistro' ||
+        selectedTechnique.name === 'Gancio destro'
+      ) &&
       playingStep === index + 1
         ? '#e10600'
         : 'transparent',
@@ -397,14 +637,43 @@ const playTechniqueAudio = () => {
 >
       <span>{step}</span>
 
-      {selectedTechnique.name === 'Guardia' && (
+     {(selectedTechnique.name === 'Guardia' ||
+  selectedTechnique.name === 'Parata sinistra' ||
+  selectedTechnique.name === 'Parata destra' ||
+  selectedTechnique.name === 'Parata due mani' ||
+  selectedTechnique.name === 'Passo avanti' ||
+  selectedTechnique.name === 'Passo indietro' ||
+  selectedTechnique.name === 'Diretto sinistro' ||
+  selectedTechnique.name === 'Diretto destro' ||
+  selectedTechnique.name === 'Gancio sinistro' ||
+  selectedTechnique.name === 'Gancio destro' ||
+  selectedTechnique.name === 'Calcio sinistro' ||
+  selectedTechnique.name === 'Calcio destro') && (
+    
         <button
           type="button"
           onClick={() => {
   stopCurrentAudio()
 
-  const audio = new Audio(`/guardia-${index + 1}.mp3`)
-  audio.currentTime = 0
+  let audioFile = ''
+
+  if (selectedTechnique.name === 'Calcio sinistro') {
+    if (index + 1 === 1) audioFile = '/calci-1.mp3'
+    if (index + 1 === 2) audioFile = '/calcisx-2.mp3'
+    if (index + 1 === 3) audioFile = '/calcisx-3.mp3'
+    if (index + 1 === 4) audioFile = '/calci-4.mp3'
+    if (index + 1 === 5) audioFile = '/calci-5.mp3'
+  }
+
+  if (selectedTechnique.name === 'Calcio destro') {
+    if (index + 1 === 1) audioFile = '/calci-1.mp3'
+    if (index + 1 === 2) audioFile = '/calcidx-2.mp3'
+    if (index + 1 === 3) audioFile = '/calcidx-3.mp3'
+    if (index + 1 === 4) audioFile = '/calci-4.mp3'
+    if (index + 1 === 5) audioFile = '/calci-5.mp3'
+  }
+
+  const audio = new Audio(audioFile)
 
   setCurrentAudio(audio)
   setPlayingStep(index + 1)
