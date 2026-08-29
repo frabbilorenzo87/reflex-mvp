@@ -1,52 +1,71 @@
 import { useEffect, useState } from 'react'
 import logoImg from './assets/logo.JPG'
 import Academy from './Pages/Academy'
+import ReflexTraining from './Pages/ReflexTraining'
 import './App.css'
 
 function App() {
   const [showAcademy, setShowAcademy] = useState(false)
-
+const [showReflexTraining, setShowReflexTraining] = useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [showAcademy])
 
   if (showAcademy) {
-    return (
-      <div className="app">
-        <Academy />
+  return (
+    <div className="app">
+      <Academy />
 
-        <nav className="bottom-nav">
-  <button
-    className="nav-item"
-    onClick={() => setShowAcademy(false)}
-  >
-    <span>🏠</span>
-    <small>Home</small>
-  </button>
+      <nav className="bottom-nav">
+        <button
+          className="nav-item"
+          onClick={() => setShowAcademy(false)}
+        >
+          <span>🏠</span>
+          <small>Home</small>
+        </button>
 
-  <button className="nav-item active">
-    <span>🛡️</span>
-    <small>Academy</small>
-  </button>
+        <button className="nav-item active">
+          <span>🛡️</span>
+          <small>Academy</small>
+        </button>
 
-  <button className="nav-item">
-    <span>⚡</span>
-    <small>Reflex</small>
-  </button>
+        <button
+          className="nav-item"
+          onClick={() => {
+            setShowAcademy(false)
+            setShowReflexTraining(true)
+          }}
+        >
+          <span>⚡</span>
+          <small>Reflex</small>
+        </button>
 
-  <button className="nav-item">
-    <span>⏱️</span>
-    <small>Reaction</small>
-  </button>
+        <button className="nav-item">
+          <span>⏱️</span>
+          <small>Reaction</small>
+        </button>
 
-  <button className="nav-item">
-    <span>📊</span>
-    <small>Statistiche</small>
-  </button>
-</nav>
- </div>
-    )
-  }
+        <button className="nav-item">
+          <span>📊</span>
+          <small>Statistiche</small>
+        </button>
+      </nav>
+    </div>
+  )
+}
+  if (showReflexTraining) {
+  return (
+    <ReflexTraining
+      onHome={() => setShowReflexTraining(false)}
+      onAcademy={() => {
+        setShowReflexTraining(false)
+        setShowAcademy(true)
+      }}
+    />
+  )
+}
+
   return (
     <div className="app">
       <header className="top-bar">
@@ -119,7 +138,9 @@ function App() {
                 la tecnica il più velocemente possibile.
               </p>
 
-              <button>ALLENA →</button>
+              <button onClick={() => setShowReflexTraining(true)}>
+  ALLENA →
+</button>
             </div>
 
             <div className="training-card reaction-card">
@@ -169,15 +190,18 @@ function App() {
           <small>Academy</small>
         </button>
 
-        <button className="nav-item">
-          <span>⚡</span>
-          <small>Reflex</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={() => {
+    setShowAcademy(false)
+    setShowReflexTraining(true)
+  }}
+>
+  <span>⚡</span>
+  <small>Reflex</small>
+</button>
 
-        <button className="nav-item">
-          <span>⏱️</span>
-          <small>Reaction</small>
-        </button>
+      
 
         <button className="nav-item">
           <span>📊</span>
