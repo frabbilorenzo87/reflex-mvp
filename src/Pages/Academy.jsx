@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import calcioImg from '../assets/techniques/calci.JPG'
 import calcioTecnicaImg from '../assets/techniques/calci tecnica.JPG'
@@ -232,13 +232,15 @@ function Academy() {
   const [playingStep, setPlayingStep] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentAudio, setCurrentAudio] = useState(null)
+  const [zoomedImage, setZoomedImage] = useState(null)
   const stopCurrentAudio = () => {
   if (currentAudio) {
     currentAudio.pause()
     currentAudio.currentTime = 0
     setCurrentAudio(null)
   }
-
+  
+  
   setIsPlaying(false)
   setPlayingStep(null)
 }
@@ -566,7 +568,10 @@ if (selectedTechnique?.name === 'Calcio destro') {
             <button
               className="technique-close"
               type="button"
-              onClick={() => setSelectedTechnique(null)}
+              onClick={() => {
+  stopCurrentAudio()
+  setSelectedTechnique(null)
+}}
             >
               ✕
             </button>
@@ -574,18 +579,56 @@ if (selectedTechnique?.name === 'Calcio destro') {
            <div className="technique-detail-images">
   {selectedTechnique.images?.map((image, index) => (
     <img
-      key={index}
-      className="technique-detail-image"
-      src={image}
-      alt={`${selectedTechnique.name} - immagine ${index + 1}`}
-    />
+  key={index}
+  className="technique-detail-image"
+  src={image}
+  alt={`${selectedTechnique.name} - immagine ${index + 1}`}
+  onClick={() => setZoomedImage(image)}
+  style={{ cursor: 'zoom-in' }}
+/>
   ))}
 </div>
+{zoomedImage && (
+  <div
+    className="image-zoom-overlay"
+    onClick={() => setZoomedImage(null)}
+  >
+    <button
+      type="button"
+      onClick={() => setZoomedImage(null)}
+      style={{
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        zIndex: 2,
+        fontSize: '28px',
+        color: 'white',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer'
+      }}
+    >
+      ✕
+    </button>
 
+    <img
+      src={zoomedImage}
+      alt="Immagine ingrandita"
+      onClick={(event) => event.stopPropagation()}
+      style={{
+        maxWidth: '95vw',
+        maxHeight: '90vh',
+        objectFit: 'contain'
+      }}
+    />
+  </div>
+)}
             <div className="technique-detail-content">
               <p className="eyebrow">REFLEX ACADEMY</p>
 
-              <h2>{selectedTechnique.name}</h2>
+              <h2 style={{ color: '#e10600' }}>
+  {selectedTechnique.name}
+</h2>
 
              {selectedTechnique.steps && (
   <div className="technique-steps">
@@ -608,6 +651,9 @@ if (selectedTechnique?.name === 'Calcio destro') {
         selectedTechnique.name === 'Diretto destro' ||
         selectedTechnique.name === 'Gancio sinistro' ||
         selectedTechnique.name === 'Gancio destro'
+        ||
+selectedTechnique.name === 'Calcio sinistro' ||
+selectedTechnique.name === 'Calcio destro'
       ) &&
       playingStep === index + 1
         ? '700'
@@ -625,6 +671,9 @@ if (selectedTechnique?.name === 'Calcio destro') {
         selectedTechnique.name === 'Diretto destro' ||
         selectedTechnique.name === 'Gancio sinistro' ||
         selectedTechnique.name === 'Gancio destro'
+        ||
+selectedTechnique.name === 'Calcio sinistro' ||
+selectedTechnique.name === 'Calcio destro'
       ) &&
       playingStep === index + 1
         ? '#e10600'
@@ -656,6 +705,70 @@ if (selectedTechnique?.name === 'Calcio destro') {
   stopCurrentAudio()
 
   let audioFile = ''
+
+  if (selectedTechnique.name === 'Guardia') {
+    audioFile = `/guardia-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Parata sinistra') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 4
+        ? `/cover-${index + 1}.mp3`
+        : `/coversx-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Parata destra') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 4
+        ? `/cover-${index + 1}.mp3`
+        : `/coverdx-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Parata due mani') {
+    audioFile = `/cover2-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Passo avanti') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 4 || index + 1 === 5
+        ? `/spostamento-${index + 1}.mp3`
+        : `/spostamentoav-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Passo indietro') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 4 || index + 1 === 5
+        ? `/spostamento-${index + 1}.mp3`
+        : `/spostamentoind-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Diretto sinistro') {
+    audioFile =
+      index + 1 === 2
+        ? '/diretto-2.mp3'
+        : `/direttosx-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Diretto destro') {
+    audioFile =
+      index + 1 === 2
+        ? '/diretto-2.mp3'
+        : `/direttodx-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Gancio sinistro') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 2
+        ? `/gancio-${index + 1}.mp3`
+        : `/ganciosx-${index + 1}.mp3`
+  }
+
+  if (selectedTechnique.name === 'Gancio destro') {
+    audioFile =
+      index + 1 === 1 || index + 1 === 2
+        ? `/gancio-${index + 1}.mp3`
+        : `/ganciodx-${index + 1}.mp3`
+  }
 
   if (selectedTechnique.name === 'Calcio sinistro') {
     if (index + 1 === 1) audioFile = '/calci-1.mp3'
