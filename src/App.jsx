@@ -2,14 +2,23 @@ import { useEffect, useState } from 'react'
 import logoImg from './assets/logo.JPG'
 import Academy from './Pages/Academy'
 import ReflexTraining from './Pages/ReflexTraining'
+import ReactionTraining from './Pages/ReactionTraining'
 import './App.css'
 
 function App() {
   const [showAcademy, setShowAcademy] = useState(false)
 const [showReflexTraining, setShowReflexTraining] = useState(false)
+const [showReactionTraining, setShowReactionTraining] = useState(false)
+const [totalXP, setTotalXP] = useState(() => {
+  const savedXP = localStorage.getItem('reflexTotalXP')
+  return savedXP ? Number(savedXP) : 0
+})
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [showAcademy])
+  useEffect(() => {
+  localStorage.setItem('reflexTotalXP', String(totalXP))
+}, [totalXP])
 
   if (showAcademy) {
   return (
@@ -41,10 +50,16 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
           <small>Reflex</small>
         </button>
 
-        <button className="nav-item">
-          <span>⏱️</span>
-          <small>Reaction</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={() => {
+    setShowAcademy(false)
+    setShowReactionTraining(true)
+  }}
+>
+  <span>⏱️</span>
+  <small>Reaction</small>
+</button>
 
         <button className="nav-item">
           <span>📊</span>
@@ -52,6 +67,23 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
         </button>
       </nav>
     </div>
+  )
+}
+if (showReactionTraining) {
+  return (
+    <ReactionTraining
+      onHome={() => setShowReactionTraining(false)}
+      onAcademy={() => {
+        setShowReactionTraining(false)
+        setShowAcademy(true)
+      }}
+      onReflex={() => {
+  setShowReactionTraining(false)
+  setShowReflexTraining(true)
+}}
+totalXP={totalXP}
+setTotalXP={setTotalXP}
+    />
   )
 }
   if (showReflexTraining) {
@@ -62,6 +94,12 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
         setShowReflexTraining(false)
         setShowAcademy(true)
       }}
+      onReaction={() => {
+  setShowReflexTraining(false)
+  setShowReactionTraining(true)
+}}
+totalXP={totalXP}
+setTotalXP={setTotalXP}
     />
   )
 }
@@ -144,7 +182,7 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
             </div>
 
             <div className="training-card reaction-card">
-              <div className="card-icon">🎯</div>
+              <div className="card-icon">⏱️</div>
 
               <h3>REACTION TEST</h3>
 
@@ -153,7 +191,15 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
                 il tuo tempo di reazione in millisecondi.
               </p>
 
-              <button>TESTA →</button>
+              <button
+  onClick={() => {
+    setShowAcademy(false)
+    setShowReflexTraining(false)
+    setShowReactionTraining(true)
+  }}
+>
+  TESTA →
+</button>
             </div>
           </div>
         </section>
@@ -202,6 +248,18 @@ const [showReflexTraining, setShowReflexTraining] = useState(false)
 </button>
 
       
+
+        <button
+          className="nav-item"
+          onClick={() => {
+            setShowAcademy(false)
+            setShowReflexTraining(false)
+            setShowReactionTraining(true)
+          }}
+        >
+          <span>⏱️</span>
+          <small>Reaction</small>
+        </button>
 
         <button className="nav-item">
           <span>📊</span>

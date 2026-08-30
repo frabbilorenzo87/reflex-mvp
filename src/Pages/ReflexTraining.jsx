@@ -1,6 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
 
-function ReflexTraining({ onHome, onAcademy }) {
+function ReflexTraining({
+  onHome,
+  onAcademy,
+  onReaction,
+  totalXP,
+  setTotalXP,
+}) {
   const [duration, setDuration] = useState(null)
   const [level, setLevel] = useState(null)
   const [isTraining, setIsTraining] = useState(false)
@@ -203,8 +209,12 @@ if (showGo) {
         <h1>ALLENAMENTO</h1>
 
         <p>
-          Ascolta il comando e reagisci il più velocemente possibile.
-        </p>
+  Seleziona la durata, seleziona il livello e avvia l'allenamento!
+</p>
+
+<p>
+  Ascolta il comando e reagisci il più velocemente possibile.
+</p>
       </header>
 
       <section className="reflex-options">
@@ -310,10 +320,13 @@ if (showGo) {
           <small>Reflex</small>
         </button>
 
-        <button className="nav-item">
-          <span>⏱️</span>
-          <small>Reaction</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={onReaction}
+>
+  <span>⏱️</span>
+  <small>Reaction</small>
+</button>
 
         <button className="nav-item">
           <span>📊</span>
