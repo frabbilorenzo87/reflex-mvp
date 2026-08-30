@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 function ReflexTraining({ onHome, onAcademy }) {
   const [duration, setDuration] = useState(null)
@@ -9,6 +9,7 @@ function ReflexTraining({ onHome, onAcademy }) {
 const [countdown, setCountdown] = useState(5)
 const [showGo, setShowGo] = useState(false)
 const [currentCommand, setCurrentCommand] = useState(null)
+const audioCache = useRef({})
 const commands = [
   'passo avanti',
   'passo indietro',
@@ -28,6 +29,27 @@ const getRandomCommand = () => {
   return commands[randomIndex]
   
 }
+const audioFiles = {
+  'passo avanti': '/passo avanti.mp3',
+  'passo indietro': '/passo indietro.mp3',
+  'guardia': '/guardia comando.mp3',
+  'diretto sinistro': '/diretto sinistro.mp3',
+  'diretto destro': '/diretto destro.mp3',
+  'gancio sinistro': '/gancio sinistro.mp3',
+  'gancio destro': '/gancio destro.mp3',
+  'calcio sinistro': '/calcio sinistro.mp3',
+  'calcio destro': '/calcio destro.mp3',
+  'parata sinistra': '/parata sinistra.mp3',
+  'parata destra': '/parata destra.mp3',
+  'parata a due mani': '/parata a due mani.mp3',
+}
+useEffect(() => {
+  Object.entries(audioFiles).forEach(([command, file]) => {
+    const audio = new Audio(file)
+    audio.preload = 'auto'
+    audioCache.current[command] = audio
+  })
+}, [])
   useEffect(() => {
   if (!isPreparing) return
 
@@ -88,6 +110,25 @@ useEffect(() => {
 
   return () => clearInterval(interval)
 }, [isTraining, level])
+useEffect(() => {
+  if (!isTraining || !currentCommand) return
+
+  
+  const audio = audioCache.current[currentCommand]
+
+if (!audio) return
+
+audio.currentTime = 0
+
+audio.play().catch(error => {
+  console.error('Errore riproduzione audio:', error)
+})
+
+return () => {
+  audio.pause()
+  audio.currentTime = 0
+}
+}, [currentCommand, isTraining])
 if (isPreparing) {
   return (
     <main className="reflex-training-page">

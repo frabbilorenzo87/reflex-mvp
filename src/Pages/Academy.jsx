@@ -629,6 +629,37 @@ if (selectedTechnique?.name === 'Calcio destro') {
               <h2 style={{ color: '#e10600' }}>
   {selectedTechnique.name}
 </h2>
+{isPlaying ? (
+  <button
+    className="learn-technique-button"
+    type="button"
+    onClick={() => {
+      if (currentAudio) {
+        currentAudio.pause()
+        currentAudio.currentTime = 0
+      }
+
+      setCurrentAudio(null)
+      setIsPlaying(false)
+      setPlayingStep(null)
+    }}
+  >
+    <span>⏹️</span>
+    <strong>FERMA GUIDA</strong>
+    <small>Interrompi la guida</small>
+  </button>
+) : (
+  <button
+    className="learn-technique-button"
+    type="button"
+    onClick={playTechniqueAudio}
+  >
+    <span>🔊</span>
+    <strong>IMPARA TECNICA</strong>
+    <small>Ascolta la guida e segui i passaggi</small>
+  </button>
+)}
+
 
              {selectedTechnique.steps && (
   <div className="technique-steps">
@@ -810,36 +841,7 @@ selectedTechnique.name === 'Calcio destro'
   </div>
 )}
 
-{isPlaying ? (
-  <button
-    className="learn-technique-button"
-    type="button"
-    onClick={() => {
-      if (currentAudio) {
-        currentAudio.pause()
-        currentAudio.currentTime = 0
-      }
 
-      setCurrentAudio(null)
-      setIsPlaying(false)
-      setPlayingStep(null)
-    }}
-  >
-    <span>⏹️</span>
-    <strong>FERMA GUIDA</strong>
-    <small>Interrompi la guida</small>
-  </button>
-) : (
-  <button
-    className="learn-technique-button"
-    type="button"
-    onClick={playTechniqueAudio}
-  >
-    <span>🔊</span>
-    <strong>IMPARA TECNICA</strong>
-    <small>Ascolta la guida e segui i passaggi</small>
-  </button>
-)}
 
               
             </div>
