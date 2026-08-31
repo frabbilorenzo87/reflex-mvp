@@ -4,6 +4,7 @@ function ReflexTraining({
   onHome,
   onAcademy,
   onReaction,
+  onStatistiche,
   totalXP,
   setTotalXP,
 }) {
@@ -328,10 +329,13 @@ if (showGo) {
   <small>Reaction</small>
 </button>
 
-        <button className="nav-item">
-          <span>📊</span>
-          <small>Statistiche</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={onStatistiche}
+>
+  <span>📊</span>
+  <small>Statistiche</small>
+</button>
       </nav>
     </main>
   )

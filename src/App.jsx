@@ -3,12 +3,14 @@ import logoImg from './assets/logo.JPG'
 import Academy from './Pages/Academy'
 import ReflexTraining from './Pages/ReflexTraining'
 import ReactionTraining from './Pages/ReactionTraining'
+import Statistiche from './Pages/Statistiche'
 import './App.css'
 
 function App() {
   const [showAcademy, setShowAcademy] = useState(false)
 const [showReflexTraining, setShowReflexTraining] = useState(false)
 const [showReactionTraining, setShowReactionTraining] = useState(false)
+const [showStatistiche, setShowStatistiche] = useState(false)
 const [totalXP, setTotalXP] = useState(() => {
   const savedXP = localStorage.getItem('reflexTotalXP')
   return savedXP ? Number(savedXP) : 0
@@ -61,12 +63,40 @@ const [totalXP, setTotalXP] = useState(() => {
   <small>Reaction</small>
 </button>
 
-        <button className="nav-item">
-          <span>📊</span>
-          <small>Statistiche</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={() => {
+    setShowAcademy(false)
+    setShowStatistiche(true)
+  }}
+>
+  <span>📊</span>
+  <small>Statistiche</small>
+</button>
       </nav>
     </div>
+  )
+}
+if (showStatistiche) {
+  return (
+    <Statistiche
+      onHome={() => setShowStatistiche(false)}
+
+      onAcademy={() => {
+        setShowStatistiche(false)
+        setShowAcademy(true)
+      }}
+
+      onReflex={() => {
+        setShowStatistiche(false)
+        setShowReflexTraining(true)
+      }}
+
+      onReaction={() => {
+        setShowStatistiche(false)
+        setShowReactionTraining(true)
+      }}
+    />
   )
 }
 if (showReactionTraining) {
@@ -80,6 +110,10 @@ if (showReactionTraining) {
       onReflex={() => {
   setShowReactionTraining(false)
   setShowReflexTraining(true)
+}}
+onStatistiche={() => {
+  setShowReactionTraining(false)
+  setShowStatistiche(true)
 }}
 totalXP={totalXP}
 setTotalXP={setTotalXP}
@@ -97,6 +131,10 @@ setTotalXP={setTotalXP}
       onReaction={() => {
   setShowReflexTraining(false)
   setShowReactionTraining(true)
+}}
+onStatistiche={() => {
+  setShowReflexTraining(false)
+  setShowStatistiche(true)
 }}
 totalXP={totalXP}
 setTotalXP={setTotalXP}
@@ -261,10 +299,18 @@ setTotalXP={setTotalXP}
           <small>Reaction</small>
         </button>
 
-        <button className="nav-item">
-          <span>📊</span>
-          <small>Statistiche</small>
-        </button>
+        <button
+  className="nav-item"
+  onClick={() => {
+    setShowAcademy(false)
+    setShowReflexTraining(false)
+    setShowReactionTraining(false)
+    setShowStatistiche(true)
+  }}
+>
+  <span>📊</span>
+  <small>Statistiche</small>
+</button>
       </nav>
     </div>
   )

@@ -4,6 +4,7 @@ function ReactionTraining({
   onHome,
   onAcademy,
   onReflex,
+  onStatistiche,
   totalXP,
   setTotalXP,
 }) {
@@ -685,10 +686,13 @@ setSessionCompleted(true)
     <small>Reaction</small>
   </button>
 
-  <button className="nav-item">
-    <span>📊</span>
-    <small>Statistiche</small>
-  </button>
+  <button
+  className="nav-item"
+  onClick={onStatistiche}
+>
+  <span>📊</span>
+  <small>Statistiche</small>
+</button>
 </nav>
     </main>
   )
