@@ -10,6 +10,7 @@ function ReactionTraining({
   const [isPreparing, setIsPreparing] = useState(false)
   const [countdown, setCountdown] = useState(5)
   const [isTesting, setIsTesting] = useState(false)
+  const [sessionCompleted, setSessionCompleted] = useState(false)
   const [currentCommand, setCurrentCommand] = useState(null)
   const [reactionTime, setReactionTime] = useState(null)
   const [noResponse, setNoResponse] = useState(false)
@@ -185,7 +186,7 @@ const [validHits, setValidHits] = useState(0)
 
         // HIT valida: chiudiamo questa tecnica
 startTimeRef.current = null
-isTestingRef.current = false
+
 recognitionShouldRunRef.current = false
 
 if (roundTimeoutRef.current) {
@@ -194,13 +195,19 @@ if (roundTimeoutRef.current) {
 }
 
 // Se non siamo alla 10ª tecnica, mostra il risultato per 1 secondo
-if (validHits + 1 < 10) {
+if (roundNumber < 10) {
 
   setTimeout(() => {
 
     if (!isTestingRef.current) return
 
-    setRoundNumber((previous) => previous + 1)
+    setRoundNumber((previous) => {
+      if (previous >= 10) {
+        return 10
+      }
+
+      return previous + 1
+    })
 
   }, 1000)
 
@@ -208,18 +215,14 @@ if (validHits + 1 < 10) {
 
   console.log('🏁 TEST COMPLETATO 10/10')
 
-  setTotalXP((previous) => previous + 20)
-
   setTimeout(() => {
 
     setIsTesting(false)
-
     isTestingRef.current = false
-
     recognitionShouldRunRef.current = false
+    setSessionCompleted(true)
 
   }, 1000)
-
 }
 
         
@@ -355,16 +358,26 @@ setNoResponse(false)
 setNoResponse(true)
 
 if (roundNumber < 10) {
+
   setTimeout(() => {
+
     setRoundNumber((previous) => previous + 1)
+
   }, 1000)
+
 } else {
-  console.log('🏁 TEST COMPLETATO 10/10')
+
+  console.log('🏁 SESSIONE TERMINATA 10/10')
+
+  isTestingRef.current = false
+  recognitionShouldRunRef.current = false
+
   setTimeout(() => {
+
     setIsTesting(false)
-    isTestingRef.current = false
-    recognitionShouldRunRef.current = false
+
   }, 1000)
+
 }
   }, 6000)
 }
@@ -444,8 +457,12 @@ setValidHits(0)
   clearTimeout(roundTimeoutRef.current)
   roundTimeoutRef.current = null
 }
-    setIsTesting(false)
-    setIsPreparing(false)
+if (validHits === 10) {
+  setTotalXP((previous) => previous + 20)
+}    
+setIsTesting(false)
+setIsPreparing(false)
+setSessionCompleted(true)
     setCurrentCommand(null)
     setReactionTime(null)
     setCountdown(5)
@@ -478,6 +495,63 @@ setValidHits(0)
     )
   }
 
+  if (sessionCompleted) {
+  return (
+    <main className="reflex-training-page">
+      <header className="academy-header">
+        <p className="eyebrow">
+          REFLEX REACTION
+        </p>
+
+        <h1>SESSIONE TERMINATA</h1>
+
+        <p>
+          Hai completato la sessione.
+        </p>
+
+        <p>
+          HIT riconosciuti: <strong>{validHits}</strong> / 10
+        </p>
+
+        <p>
+  XP HIT: <strong>{validHits * 10}</strong>
+</p>
+
+{validHits === 10 && (
+  <p>
+    Bonus sessione perfetta: <strong>+20 XP</strong>
+  </p>
+)}
+
+<p>
+  XP totali sessione: <strong>
+    {validHits * 10 + (validHits === 10 ? 20 : 0)}
+  </strong>
+</p>
+      </header>
+
+      <button
+        type="button"
+        onClick={() => {
+          setSessionCompleted(false)
+          setValidHits(0)
+          setReactionTimes([])
+          setCurrentCommand(null)
+          setReactionTime(null)
+        }}
+      >
+        ▶️ NUOVA SESSIONE
+      </button>
+
+      <button
+        type="button"
+        onClick={leaveReaction}
+      >
+        🏠 TORNA ALLA HOME
+      </button>
+    </main>
+  )
+}
   if (isTesting) {
     return (
       <main className="reflex-training-page">
