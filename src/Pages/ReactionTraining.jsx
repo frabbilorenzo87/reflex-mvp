@@ -182,6 +182,7 @@ const [validHits, setValidHits] = useState(0)
         )
 
         setReactionTime(elapsed)
+        setReactionTimes((previous) => [...previous, elapsed])
         setTotalXP((previous) => previous + 10)
         setValidHits((previous) => previous + 1)
 
@@ -460,7 +461,17 @@ setValidHits(0)
 }
 if (validHits === 10) {
   setTotalXP((previous) => previous + 20)
-}    
+}  
+if (reactionTimes.length > 0) {
+  const average =
+    reactionTimes.reduce((sum, time) => sum + time, 0) /
+    reactionTimes.length
+
+  const best = Math.min(...reactionTimes)
+
+  localStorage.setItem('reactionAverage', String(Math.round(average)))
+  localStorage.setItem('reactionBest', String(best))
+}  
 setIsTesting(false)
 setIsPreparing(false)
 setSessionCompleted(true)

@@ -17,6 +17,7 @@ const [countdown, setCountdown] = useState(5)
 const [showGo, setShowGo] = useState(false)
 const [currentCommand, setCurrentCommand] = useState(null)
 const audioCache = useRef({})
+
 const commands = [
   'passo avanti',
   'passo indietro',
@@ -31,9 +32,15 @@ const commands = [
   'parata destra',
   'parata a due mani',
 ]
-const getRandomCommand = () => {
-  const randomIndex = Math.floor(Math.random() * commands.length)
-  return commands[randomIndex]
+const getRandomCommand = (previousCommand = null) => {
+  const availableCommands = commands.filter(
+    (command) => command !== previousCommand
+  )
+
+  const randomIndex = Math.floor(Math.random() * availableCommands.length)
+
+  return availableCommands[randomIndex]
+
   
 }
 const audioFiles = {
@@ -77,7 +84,8 @@ useEffect(() => {
   if (!showGo) return
 
   const goTimer = setTimeout(() => {
-  setTimeLeft(duration * 60)
+  
+    setTimeLeft(duration * 60)
   setCurrentCommand(getRandomCommand())
   setShowGo(false)
   setIsTraining(true)
@@ -85,13 +93,45 @@ useEffect(() => {
   return () => clearTimeout(goTimer)
 }, [showGo])
 useEffect(() => {
+  if (!isTraining || !duration) return
+
+  const trainingTimer = setTimeout(() => {
+    const baseXP =
+      duration === 3
+        ? 50
+        : duration === 5
+          ? 100
+          : duration === 7
+            ? 150
+            : 0
+
+    const levelBonus =
+      level === 'principiante'
+        ? 20
+        : level === 'intermedio'
+          ? 40
+          : level === 'avanzato'
+            ? 60
+            : 0
+
+    const earnedXP = baseXP + levelBonus
+
+    console.log('🏆 XP REFLEX ASSEGNATI:', earnedXP)
+
+    setIsTraining(false)
+    setTimeLeft(0)
+    setTotalXP((previousXP) => previousXP + earnedXP)
+  }, duration * 60 * 1000)
+
+  return () => clearTimeout(trainingTimer)
+}, [isTraining, duration, level, setTotalXP])
+useEffect(() => {
   if (!isTraining) return
 
   const interval = setInterval(() => {
     setTimeLeft((previous) => {
       if (previous <= 1) {
         clearInterval(interval)
-        setIsTraining(false)
         return 0
       }
 
@@ -101,10 +141,12 @@ useEffect(() => {
 
   return () => clearInterval(interval)
 }, [isTraining])
-useEffect(() => {
-  if (!isTraining) return
 
-  const intervalSeconds =
+
+
+useEffect(() => {
+  if (!isTraining) return  
+const intervalSeconds =
     level === 'principiante'
       ? 5
       : level === 'intermedio'
@@ -112,8 +154,10 @@ useEffect(() => {
         : 3
 
   const interval = setInterval(() => {
-    setCurrentCommand(getRandomCommand())
-  }, intervalSeconds * 1000)
+  setCurrentCommand((previousCommand) =>
+    getRandomCommand(previousCommand)
+  )
+}, intervalSeconds * 1000)
 
   return () => clearInterval(interval)
 }, [isTraining, level])

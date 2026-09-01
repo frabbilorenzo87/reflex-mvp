@@ -15,6 +15,21 @@ const [totalXP, setTotalXP] = useState(() => {
   const savedXP = localStorage.getItem('reflexTotalXP')
   return savedXP ? Number(savedXP) : 0
 })
+const getLevel = (xp) => {
+  if (xp < 50) return 1
+  if (xp < 150) return 2
+  if (xp < 250) return 3
+  if (xp < 350) return 4
+  if (xp < 450) return 5
+  if (xp < 550) return 6
+  if (xp < 650) return 7
+  if (xp < 800) return 8
+  if (xp < 1000) return 9
+
+  return 10 + Math.floor((xp - 1000) / 500)
+}
+
+const currentLevel = getLevel(totalXP)
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [showAcademy])
@@ -96,6 +111,7 @@ if (showStatistiche) {
         setShowStatistiche(false)
         setShowReactionTraining(true)
       }}
+      totalXP={totalXP}
     />
   )
 }
@@ -151,7 +167,7 @@ setTotalXP={setTotalXP}
         </div>
 
         <div className="level-badge">
-          <span>LVL 1</span>
+          <span>LVL {currentLevel}</span>
         </div>
       </header>
 
@@ -245,17 +261,21 @@ setTotalXP={setTotalXP}
         <section className="stats-preview">
           <div>
             <p>XP TOTALI</p>
-            <strong>0</strong>
+            <strong>{totalXP}</strong>
           </div>
 
           <div>
             <p>LIVELLO</p>
-            <strong>1</strong>
+            <strong>{currentLevel}</strong>
           </div>
 
           <div>
             <p>MIGLIOR REAZIONE</p>
-            <strong>—</strong>
+            <strong>
+  {localStorage.getItem('reactionBest')
+    ? `${(Number(localStorage.getItem('reactionBest')) / 1000).toFixed(2)} s`
+    : '—'}
+</strong>
           </div>
         </section>
       </main>
