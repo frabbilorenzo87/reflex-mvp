@@ -717,6 +717,60 @@ h1 span {
   cursor: pointer;
   transition: all 0.2s ease;
 }
+.reflex-duration-options button.selected-duration {
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ff0000 !important;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+}
+.reflex-level-options button {
+  min-width: 180px;
+  min-height: 90px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #111111;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.reflex-training-page > button[type="button"] {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  min-height: 90px;
+  margin: 30px auto 20px;
+  padding: 16px 24px;
+
+  border-radius: 14px;
+  background: #ff0000;
+  color: #ffffff;
+  border: 2px solid #ff0000;
+
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reflex-training-page > button[type="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+}
+
+.reflex-training-page > button[type="button"]:disabled {
+  background: #111111;
+  color: #666666;
+  border: 1px solid #2a2a2a;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
 .reflex-level-options button.selected-level {
   background: #ff0000 !important;
   color: #ffffff !important;
@@ -772,4 +826,172 @@ h1 span {
 margin-right: auto !important;
   text-align: center !important;
   color: #e53935 !important;
+}
+.reflex-training-page .academy-header {
+  text-align: center;
+}
+
+.reflex-training-page .academy-header h1 {
+  color: #e53935;
+}
+
+.reflex-training-page .academy-header > div strong {
+  display: block;
+  font-size: 5rem;
+  line-height: 1;
+  color: #ffffff;
+  margin: 25px 0;
+}
+
+.reflex-training-page .academy-header > p:last-child {
+  color: #e53935;
+}
+.reflex-training-page .academy-header {
+  text-align: center;
+}
+
+.reflex-training-page .academy-header h1 {
+  color: #e53935;
+}
+
+.reflex-training-page .academy-header > div strong {
+  display: block;
+  font-size: 5rem;
+  line-height: 1;
+  color: #ffffff;
+  margin: 25px 0;
+}
+
+.reflex-training-page .academy-header h2 {
+  color: #e53935;
+  font-size: 2.5rem;
+  margin: 20px 0 10px;
+  font-weight: 800;
+}
+
+.reflex-training-page .academy-header > p:last-child {
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center !important;
+  width: 100%;
+}
+.preparation-subtitle {
+  width: 100% !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 1.2rem !important;
+}
+.reflex-training-page .academy-header .session-info {
+  display: block;
+  width: 100%;
+  max-width: none !important;
+  margin: 10px auto 0 !important;
+  padding: 0;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+.active-command {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 20px auto;
+}
+.active-timer {
+  width: 100%;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.active-timer strong {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+}
+.terminate-training-button {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  min-height: 90px;
+  margin: 30px auto 0;
+  padding: 16px 24px;
+
+  border-radius: 14px;
+  background: #111111;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terminate-training-button:hover {
+  background: #ff0000;
+  color: #ffffff;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+.reaction-final-instruction {
+  width: 100%;
+  max-width: 620px;
+  margin: 25px auto 0 !important;
+  text-align: center !important;
+  color: #e53935 !important;
+  font-weight: 800 !important;
+}
+.round-info {
+  width: 100%;
+  margin: 10px auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+}
+
+.reaction-instruction {
+  width: 100%;
+  max-width: 620px;
+  margin: 20px auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+}
+.no-response-message {
+  width: 100%;
+  margin: 20px auto !important;
+  text-align: center !important;
+  color: #e53935 !important;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+}
+.session-result-info {
+  width: 100%;
+  margin: 16px auto !important;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+}
+
+.total-session-xp {
+  width: 100%;
+  max-width: 620px;
+  margin: 25px auto !important;
+  text-align: center !important;
+  color: #e53935 !important;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
 }

@@ -93,10 +93,12 @@ useEffect(() => {
   if (!isPreparing) return
 
   if (countdown === 0) {
-    setIsPreparing(false)
-    setShowGo(true)
-    return
-  }
+  setTimeLeft(duration * 60)
+  setCurrentCommand(getRandomCommand())
+  setIsPreparing(false)
+  setIsTraining(true)
+  return
+}
 
   const timer = setTimeout(() => {
     setCountdown((previous) => previous - 1)
@@ -214,27 +216,20 @@ if (isPreparing) {
         <h1>PREPARATI</h1>
 
         <div>
-          <strong>{countdown}</strong>
-        </div>
+  <strong>{countdown}</strong>
+</div>
 
-        <p>Preparati... si parte!</p>
-      </header>
+<h2>GUARDIA!</h2>
+
+<p className="preparation-subtitle">
+  Preparati alla prima tecnica!
+</p>
+
+</header>
     </main>
   )
 }
-if (showGo) {
-  return (
-    <main className="reflex-training-page">
-      <header className="academy-header">
-        <p className="eyebrow">REFLEX TRAINING</p>
 
-        <h1>GUARDIA!</h1>
-
-        <p>Preparati alla prima tecnica!</p>
-      </header>
-    </main>
-  )
-}
   if (isTraining) {
   return (
     <main className="reflex-training-page">
@@ -243,17 +238,19 @@ if (showGo) {
 
         <h1>SESSIONE IN CORSO</h1>
 
-        <p>
-          Durata: {duration} minuti · Livello: {level}
-        </p>
+        <p className="session-info">
+  Durata: {duration} minuti · Livello: {level}
+</p>
       </header>
 
       <section className="reflex-options">
         <h2>ALLENAMENTO ATTIVO</h2>
         <p>COMANDO</p>
 
-<strong>{currentCommand}</strong>
-        <div>
+<strong className="active-command">
+  {currentCommand}
+</strong>
+        <div className="active-timer">
   <strong>
     {Math.floor(timeLeft / 60)}:
     {String(timeLeft % 60).padStart(2, '0')}
@@ -261,11 +258,12 @@ if (showGo) {
 </div>
 
         <button
-          type="button"
-          onClick={() => setIsTraining(false)}
-        >
-          ⏹ TERMINA ALLENAMENTO
-        </button>
+  type="button"
+  className="terminate-training-button"
+  onClick={() => setIsTraining(false)}
+>
+  ⏹ TERMINA ALLENAMENTO
+</button>
       </section>
     </main>
   )
@@ -304,7 +302,7 @@ if (showGo) {
   onClick={() => setDuration(3)}
 >
   <strong>3 MINUTI</strong>
-  <small>50 XP</small>
+  <small> +50 XP</small>
 </button>
 
           <button
@@ -313,7 +311,7 @@ if (showGo) {
   onClick={() => setDuration(5)}
 >
   <strong>5 MINUTI</strong>
-  <small>100 XP</small>
+  <small> +100 XP</small>
 </button>
 
           <button
@@ -322,7 +320,7 @@ if (showGo) {
   onClick={() => setDuration(7)}
 >
   <strong>7 MINUTI</strong>
-  <small>150 XP</small>
+  <small> +150 XP</small>
 </button>
         </div>
       </section>
@@ -336,7 +334,7 @@ if (showGo) {
   onClick={() => setLevel('principiante')}
 >
   <strong>PRINCIPIANTE</strong>
-  <small>Ogni 5 secondi · +20 XP</small>
+  <small> +20 XP</small>
 </button>
 
           <button
@@ -345,7 +343,7 @@ if (showGo) {
   onClick={() => setLevel('intermedio')}
 >
   <strong>INTERMEDIO</strong>
-  <small>Ogni 4 secondi · +40 XP</small>
+  <small> +40 XP</small>
 </button>
 
           <button
@@ -354,7 +352,7 @@ if (showGo) {
   onClick={() => setLevel('avanzato')}
 >
   <strong>AVANZATO</strong>
-  <small>Ogni 3 secondi · +60 XP</small>
+  <small> +60 XP</small>
 </button>
         </div>
       </section>
@@ -368,12 +366,7 @@ if (showGo) {
 >
   ▶️ AVVIA ALLENAMENTO
 </button>
-      <button
-        type="button"
-        onClick={onHome}
-      >
-        🏠 TORNA ALLA HOME
-      </button>
+      
        <nav className="bottom-nav">
         <button
           className="nav-item"

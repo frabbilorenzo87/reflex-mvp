@@ -21,6 +21,32 @@ const [validHits, setValidHits] = useState(0)
   const [micReady, setMicReady] = useState(false)
   const [roundNumber, setRoundNumber] = useState(1)
   const [debugTranscript, setDebugTranscript] = useState('')
+  const [introAudio, setIntroAudio] = useState(null)
+const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+
+const toggleIntro = () => {
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+  }
+
+  if (isIntroPlaying) {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+    return
+  }
+
+  const audio = new Audio("/intro reaction.mp3")
+
+  audio.onended = () => {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+
+  audio.play()
+  setIntroAudio(audio)
+  setIsIntroPlaying(true)
+}
 
   const recognitionRef = useRef(null)
   const startTimeRef = useRef(null)
@@ -499,9 +525,9 @@ setSessionCompleted(true)
             <strong>{countdown}</strong>
           </div>
 
-          <p>
-            Preparati... si parte!
-          </p>
+          <p className="preparation-subtitle">
+  Preparati... si parte!
+</p>
         </header>
       </main>
     )
@@ -517,15 +543,15 @@ setSessionCompleted(true)
 
         <h1>SESSIONE TERMINATA</h1>
 
-        <p>
-          Hai completato la sessione.
-        </p>
+        <p className="session-result-info">
+  Hai completato la sessione.
+</p>
 
-        <p>
-          HIT riconosciuti: <strong>{validHits}</strong> / 10
-        </p>
+<p className="session-result-info">
+  HIT riconosciuti: <strong>{validHits}</strong> / 10
+</p>
 
-        <p>
+<p className="session-result-info">
   XP HIT: <strong>{validHits * 10}</strong>
 </p>
 
@@ -535,7 +561,7 @@ setSessionCompleted(true)
   </p>
 )}
 
-<p>
+<p className="total-session-xp">
   XP totali sessione: <strong>
     {validHits * 10 + (validHits === 10 ? 20 : 0)}
   </strong>
@@ -572,7 +598,7 @@ setSessionCompleted(true)
             REFLEX REACTION
           </p>
 
-          <p>
+          <p className="round-info">
   Tecnica {roundNumber} di 10
 </p>
           <h1>{currentCommand}</h1>
@@ -589,15 +615,15 @@ setSessionCompleted(true)
   </>
 ) : noResponse ? (
   <>
-    <p>
-      NESSUNA RISPOSTA
-    </p>
+    <p className="no-response-message">
+  NESSUNA RISPOSTA
+</p>
   </>
 ) : (
   <>
-    <p>
-      Ascolta il comando e pronuncia HIT.
-    </p>
+    <p className="reaction-instruction">
+  Ascolta il comando e pronuncia HIT.
+</p>
   </>
 )}
         </header>
@@ -620,34 +646,35 @@ setSessionCompleted(true)
         </p>
 
         <h1>REACTION TEST</h1>
+        <button
+  className="intro-button"
+  onClick={toggleIntro}
+>
+  {isIntroPlaying ? "⏹ FERMA INTRO" : "🔊 ASCOLTA L'INTRO"}
+</button>
 
-        <p>
-  <strong>Come funziona</strong>
+        
+
+<p>
+  <strong>1.</strong> Avvia il Reaction Test e preparati al countdown.
 </p>
 
 <p>
-  Clicca su <strong>AVVIA REACTION TEST</strong> per iniziare.
-  Partirà un countdown iniziale.
+  <strong>2.</strong> Ascolta il comando vocale ed esegui la tecnica indicata.
 </p>
 
 <p>
-  Al termine del countdown, ascolta il comando vocale e
-  osserva la tecnica indicata sullo schermo.
+  <strong>3.</strong> Appena hai eseguito la tecnica, pronuncia <strong>HIT</strong> il più velocemente possibile.
 </p>
 
 <p>
-  Esegui la tecnica il più velocemente possibile e, appena
-  l’hai eseguita, urla <strong>HIT</strong>. Il tempo di
-  reazione verrà calcolato automaticamente.
+  La sessione comprende <strong>10 tecniche casuali</strong>.
+  Se non rispondi entro il tempo massimo, si passa automaticamente
+  alla tecnica successiva.
 </p>
 
-<p>
-  La sessione è automatica e comprende <strong>10 tecniche casuali</strong>.
-  Se non rispondi entro il tempo massimo, si passa
-  automaticamente alla tecnica successiva.
-</p>
-<p>
-  Al termine delle 10 tecniche, premi TERMINA TEST per visualizzare i risultati della sessione.
+<p className="reaction-final-instruction">
+  Al termine delle 10 tecniche, clicca su "termina test" e visualizzerai i risultati della sessione.
 </p>
 
         {!micReady && (
@@ -664,12 +691,7 @@ setSessionCompleted(true)
         ▶️ AVVIA REACTION TEST
       </button>
 
-      <button
-        type="button"
-        onClick={leaveReaction}
-      >
-        🏠 TORNA ALLA HOME
-      </button>
+      
       <nav className="bottom-nav">
   <button
     className="nav-item"
