@@ -30,14 +30,44 @@ const getLevel = (xp) => {
 }
 
 const currentLevel = getLevel(totalXP)
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [showAcademy])
-  useEffect(() => {
+
+useEffect(() => {
+  window.scrollTo(0, 0)
+}, [showAcademy])
+
+useEffect(() => {
   localStorage.setItem('reflexTotalXP', String(totalXP))
 }, [totalXP])
 
-  if (showAcademy) {
+const [introAudio, setIntroAudio] = useState(null)
+const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+
+const toggleIntro = () => {
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+  }
+
+  if (isIntroPlaying) {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+    return
+  }
+
+  const audio = new Audio("/intro.mp3")
+
+  audio.onended = () => {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+
+  audio.play()
+  setIntroAudio(audio)
+  setIsIntroPlaying(true)
+}
+
+if (showAcademy) {
+
   return (
     <div className="app">
       <Academy />
@@ -175,6 +205,12 @@ setTotalXP={setTotalXP}
         <section className="hero-section">
           <div className="hero-content">
             <img src={logoImg} alt="REFLEX" className="home-logo" />
+            <button
+  className="intro-button"
+  onClick={toggleIntro}
+>
+  {isIntroPlaying ? "⏹ FERMA INTRO" : "🔊 ASCOLTA L'INTRO"}
+</button>
             <p className="eyebrow">REFLEX TRAINING SYSTEM</p>
 
             <h1>

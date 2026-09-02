@@ -16,6 +16,31 @@ function ReflexTraining({
 const [countdown, setCountdown] = useState(5)
 const [showGo, setShowGo] = useState(false)
 const [currentCommand, setCurrentCommand] = useState(null)
+const [introAudio, setIntroAudio] = useState(null)
+const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+const toggleIntro = () => {
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+  }
+
+  if (isIntroPlaying) {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+    return
+  }
+
+  const audio = new Audio("/intro reflex.mp3")
+
+  audio.onended = () => {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+
+  audio.play()
+  setIntroAudio(audio)
+  setIsIntroPlaying(true)
+}
 const audioCache = useRef({})
 
 const commands = [
@@ -252,13 +277,19 @@ if (showGo) {
         <p className="eyebrow">REFLEX TRAINING</p>
 
         <h1>ALLENAMENTO</h1>
+        <button
+  className="intro-button"
+  onClick={toggleIntro}
+>
+  {isIntroPlaying ? "⏹ FERMA INTRO" : "🔊 ASCOLTA L'INTRO"}
+</button>
 
-        <p>
-  Seleziona la durata, seleziona il livello e avvia l'allenamento!
+        <p className="reflex-intro-text">
+  <strong>1.</strong> Seleziona la durata, seleziona il livello e avvia l'allenamento!
 </p>
 
-<p>
-  Ascolta il comando e reagisci il più velocemente possibile.
+<p className="reflex-intro-text">
+  <strong>2.</strong> Ascolta il comando e reagisci il più velocemente possibile.
 </p>
       </header>
 

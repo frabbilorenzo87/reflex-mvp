@@ -646,6 +646,9 @@ setSessionCompleted(true)
   Se non rispondi entro il tempo massimo, si passa
   automaticamente alla tecnica successiva.
 </p>
+<p>
+  Al termine delle 10 tecniche, premi TERMINA TEST per visualizzare i risultati della sessione.
+</p>
 
         {!micReady && (
           <p>

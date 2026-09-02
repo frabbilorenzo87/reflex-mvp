@@ -15,8 +15,11 @@ import direttoTecnicaImg from '../assets/techniques/diretto tecnica.JPG'
 import direttoDestroImg from '../assets/techniques/diretto destro.PNG'
 
 import gancioImg from '../assets/techniques/gancio.JPG'
-import gancioTecnicaImg from '../assets/techniques/gancio tecnica.JPG'
-import gancioSinistraImg from '../assets/techniques/gancio sinistra.jpg'
+
+import gancioSinistra1Img from '../assets/techniques/gancio sinistro 1.jpg'
+import gancioSinistra2Img from '../assets/techniques/gancio sinistro 2.jpg'
+import gancioDestra2Img from '../assets/techniques/gancio destro 2.JPG'
+import gancioDestra1Img from '../assets/techniques/gancio destro 1.PNG'
 
 import guardiaImg from '../assets/techniques/guardia.JPG'
 import guardiaStep1Img from '../assets/techniques/guardia step 1.PNG'
@@ -184,7 +187,15 @@ const categories = [
   ]
 },
 
- { title: 'GANCIO', image: gancioImg, techniques: [ { name: 'Gancio sinistro', description: 'Colpo circolare eseguito con il braccio sinistro, mantenendo il corpo stabile e la mano destra in protezione.', steps: [ 'Parti dalla posizione di guardia, con entrambe le mani alte.', 'Ruota leggermente il piede e il bacino per accompagnare il movimento.', 'Piega il braccio sinistro e portalo lateralmente verso il bersaglio.', 'Mantieni la mano destra vicino al viso per proteggerti.', 'Riporta rapidamente il braccio sinistro nella posizione di guardia.' ], images: [ guardiaStep3Img, gancioTecnicaImg ] }, { name: 'Gancio destro', description: 'Colpo circolare eseguito con il braccio destro, mantenendo il corpo stabile e la mano sinistra in protezione.', steps: [ 'Parti dalla posizione di guardia, con entrambe le mani alte.', 'Ruota leggermente il piede e il bacino per accompagnare il movimento.', 'Piega il braccio destro e portalo lateralmente verso il bersaglio.', 'Mantieni la mano sinistra vicino al viso per proteggerti.', 'Riporta rapidamente il braccio destro nella posizione di guardia.' ], images: [ guardiaStep3Img, gancioSinistraImg ] } ] },
+ { title: 'GANCIO', image: gancioImg, techniques: [ { name: 'Gancio sinistro', description: 'Colpo circolare eseguito con il braccio sinistro, mantenendo il corpo stabile e la mano destra in protezione.', steps: [ 'Parti dalla posizione di guardia, con entrambe le mani alte.', 'Ruota leggermente il piede e il bacino per accompagnare il movimento.', 'Piega il braccio sinistro e portalo lateralmente verso il bersaglio.', 'Mantieni la mano destra vicino al viso per proteggerti.', 'Riporta rapidamente il braccio sinistro nella posizione di guardia.' ], images: [
+  guardiaStep3Img,
+  gancioSinistra1Img,
+  gancioSinistra2Img
+] }, { name: 'Gancio destro', description: 'Colpo circolare eseguito con il braccio destro, mantenendo il corpo stabile e la mano sinistra in protezione.', steps: [ 'Parti dalla posizione di guardia, con entrambe le mani alte.', 'Ruota leggermente il piede e il bacino per accompagnare il movimento.', 'Piega il braccio destro e portalo lateralmente verso il bersaglio.', 'Mantieni la mano sinistra vicino al viso per proteggerti.', 'Riporta rapidamente il braccio destro nella posizione di guardia.' ], images: [
+  guardiaStep3Img,
+  gancioDestra1Img,
+  gancioDestra2Img
+] } ] },
 
 {
   title: 'CALCIO CENTRALE E LATERALE',
@@ -233,6 +244,33 @@ function Academy() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentAudio, setCurrentAudio] = useState(null)
   const [zoomedImage, setZoomedImage] = useState(null)
+  const [introAudio, setIntroAudio] = useState(null)
+const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+
+const toggleIntro = () => {
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+  }
+
+  if (isIntroPlaying) {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+    return
+  }
+
+  const audio = new Audio("/intro academy.mp3")
+
+  audio.onended = () => {
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+
+  audio.play()
+  setIntroAudio(audio)
+  setIsIntroPlaying(true)
+}
+
   const stopCurrentAudio = () => {
   if (currentAudio) {
     currentAudio.pause()
@@ -509,15 +547,22 @@ if (selectedTechnique?.name === 'Calcio destro') {
   return (
     <main className="academy-page">
       <header className="academy-header">
-        <p className="eyebrow">REFLEX ACADEMY</p>
+  <p className="eyebrow">REFLEX ACADEMY</p>
 
-        <h1>TECNICHE</h1>
+  <h1>TECNICHE</h1>
 
-        <p>
-          Impara le tecniche fondamentali e costruisci le basi
-          per migliorare i tuoi riflessi.
-        </p>
-      </header>
+  <button
+    className="intro-button"
+    onClick={toggleIntro}
+  >
+    {isIntroPlaying ? "⏹ FERMA INTRO" : "🔊 ASCOLTA L'INTRO"}
+  </button>
+
+  <p className="academy-intro-text">
+    Impara le tecniche fondamentali e costruisci le basi
+    per migliorare i tuoi riflessi.
+  </p>
+</header>
 
       <section className="academy-content">
         {categories.map((category) => (
