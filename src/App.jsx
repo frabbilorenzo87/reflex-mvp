@@ -277,7 +277,7 @@ setTotalXP={setTotalXP}
               <h3>REACTION TEST</h3>
 
               <p>
-                Rispondi allo stimolo BOX e misura
+                Rispondi allo stimolo rispondendo HIT e misura
                 il tuo tempo di reazione in millisecondi.
               </p>
 

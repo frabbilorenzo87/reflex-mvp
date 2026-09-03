@@ -1,3 +1,4 @@
+import { useState } from 'react'
 function Statistiche({
   onHome,
   onAcademy,
@@ -5,6 +6,32 @@ function Statistiche({
   onReaction,
   totalXP,
 }) {
+  const [introAudio, setIntroAudio] = useState(null)
+  const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+
+  const toggleIntro = () => {
+    if (introAudio) {
+      introAudio.pause()
+      introAudio.currentTime = 0
+    }
+
+    if (isIntroPlaying) {
+      setIntroAudio(null)
+      setIsIntroPlaying(false)
+      return
+    }
+
+    const audio = new Audio("/intro statistiche.mp3")
+
+    audio.onended = () => {
+      setIntroAudio(null)
+      setIsIntroPlaying(false)
+    }
+
+    audio.play()
+    setIntroAudio(audio)
+    setIsIntroPlaying(true)
+  }
    const getLevel = (xp) => {
     if (xp < 50) return 1
     if (xp < 150) return 2
@@ -47,17 +74,31 @@ const reactionBest = localStorage.getItem('reactionBest')
         </p>
 
         <h1>STATISTICHE</h1>
-         <p>
-          LIVELLO <strong>{currentLevel}</strong>
-        </p>
+        
+        <button
+          className="intro-button"
+          onClick={toggleIntro}
+        >
+          <p>
+  Qui vedrai i tuoi progressi, gli XP e le statistiche
+  dei tuoi allenamenti.
+</p>
+          
+          {isIntroPlaying ? "⏹ FERMA INTRO" : "🔊 ASCOLTA L'INTRO"}
+        </button>
+         <p className="stats-level">
+  LIVELLO <strong>{currentLevel}</strong>
+</p>
 
-        <p>
-          <strong>{totalXP}</strong> XP TOTALI
-        </p>
+        <p className="stats-total-xp">
+  <strong>{totalXP}</strong> XP TOTALI
+</p>
+<p className="stats-next-level">
+  {xpIntoLevel} / {xpNeeded} XP
+</p>
 
-        <p>
-          {xpIntoLevel} / {xpNeeded} XP AL PROSSIMO LIVELLO
-        </p>
+        
+
 
         <div
           style={{
@@ -79,30 +120,36 @@ const reactionBest = localStorage.getItem('reactionBest')
             }}
           />
         </div>
-          <p>
-          XP TOTALI: <strong>{totalXP}</strong>
-        </p>
-
-        <p>
-          LIVELLO: <strong>{currentLevel}</strong>
-        </p>
-
-        <p>
-  Qui vedrai i tuoi progressi, gli XP e le statistiche
-  dei tuoi allenamenti.
+        <p className="stats-next-level-total">
+  <strong>{xpNeeded - xpIntoLevel} XP</strong> AL PROSSIMO LIVELLO
 </p>
+          
 
-<h2>⚡ REACTION</h2>
+        
+
+        
+
+<h2>REACTION</h2>
 
 {reactionAverage && reactionBest ? (
   <>
-    <p>
-      TEMPO MEDIO: <strong>{(Number(reactionAverage) / 1000).toFixed(2)} s</strong>
-    </p>
+    <p className="reaction-stat">
+  ⏱️ TEMPO MEDIO: <strong>{(Number(reactionAverage) / 1000).toFixed(2)} s</strong>
+</p>
 
-    <p>
-      TEMPO MIGLIORE: <strong>{(Number(reactionBest) / 1000).toFixed(2)} s</strong>
-    </p>
+<p className="reaction-stat">
+  🏆 TEMPO MIGLIORE: <strong>{(Number(reactionBest) / 1000).toFixed(2)} s</strong>
+</p>
+<div className="stats-motivation">
+  <p>Continua così, stai costruendo i tuoi riflessi.</p>
+  <p>Ogni allenamento ti porta un passo avanti.</p>
+  <p>Il tuo prossimo record ti aspetta.</p>
+
+  <p className="stats-final-message">
+    ALLENATI. REAGISCI. MIGLIORA.
+  </p>
+</div>
+
   </>
 ) : (
   <p>

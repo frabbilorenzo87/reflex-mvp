@@ -11,6 +11,7 @@ function ReflexTraining({
   const [duration, setDuration] = useState(null)
   const [level, setLevel] = useState(null)
   const [isTraining, setIsTraining] = useState(false)
+  const [sessionSummary, setSessionSummary] = useState(null)
   const [timeLeft, setTimeLeft] = useState(0)
   const [isPreparing, setIsPreparing] = useState(false)
 const [countdown, setCountdown] = useState(5)
@@ -143,11 +144,28 @@ useEffect(() => {
 
     const earnedXP = baseXP + levelBonus
 
-    console.log('🏆 XP REFLEX ASSEGNATI:', earnedXP)
+const intervalSeconds =
+  level === 'principiante'
+    ? 5
+    : level === 'intermedio'
+      ? 4
+      : 3
 
-    setIsTraining(false)
-    setTimeLeft(0)
-    setTotalXP((previousXP) => previousXP + earnedXP)
+const techniquesCompleted =
+  1 + Math.floor((duration * 60) / intervalSeconds)
+
+console.log('🏆 XP REFLEX ASSEGNATI:', earnedXP)
+
+setSessionSummary({
+  techniques: techniquesCompleted,
+  earnedXP,
+  duration,
+  level,
+})
+
+setIsTraining(false)
+setTimeLeft(0)
+setTotalXP((previousXP) => previousXP + earnedXP)
   }, duration * 60 * 1000)
 
   return () => clearTimeout(trainingTimer)
@@ -207,6 +225,55 @@ return () => {
   audio.currentTime = 0
 }
 }, [currentCommand, isTraining])
+if (sessionSummary) {
+  return (
+    <main className="reflex-training-page">
+      <header className="academy-header">
+        <p className="eyebrow">REFLEX TRAINING</p>
+
+        <h1>ALLENAMENTO COMPLETATO</h1>
+
+        <p className="session-result-info">
+          Tecniche effettuate: <strong>{sessionSummary.techniques}</strong>
+        </p>
+
+        <p className="session-result-info">
+          XP guadagnati: <strong>+{sessionSummary.earnedXP}</strong>
+        </p>
+
+        <p className="session-result-info">
+          Durata: <strong>{sessionSummary.duration} minuti</strong>
+        </p>
+
+        <p className="session-result-info">
+          Livello: <strong>{sessionSummary.level}</strong>
+        </p>
+
+        <p className="total-session-xp">
+          Ottimo lavoro! Continua così.
+        </p>
+      </header>
+
+      <button
+        type="button"
+        onClick={() => {
+          setSessionSummary(null)
+          setCurrentCommand(null)
+          setTimeLeft(0)
+        }}
+      >
+        ▶️ NUOVO ALLENAMENTO
+      </button>
+
+      <button
+        type="button"
+        onClick={onHome}
+      >
+        🏠 TORNA ALLA HOME
+      </button>
+    </main>
+  )
+}
 if (isPreparing) {
   return (
     <main className="reflex-training-page">

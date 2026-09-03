@@ -982,9 +982,27 @@ margin-right: auto !important;
   width: 100%;
   margin: 16px auto !important;
   text-align: center !important;
+  color: #ffffff !important;
   font-size: 1.2rem !important;
   font-weight: 800 !important;
 }
+
+.session-result-info strong {
+  color: #ffffff !important;
+  font-size: 1.3rem !important;
+  font-weight: 900 !important;
+}
+
+.total-session-xp {
+  width: 100%;
+  max-width: 620px;
+  margin: 25px auto !important;
+  text-align: center !important;
+  color: #e53935 !important;
+  font-size: 1.3rem !important;
+  font-weight: 900 !important;
+}
+
 
 .total-session-xp {
   width: 100%;
@@ -995,3 +1013,96 @@ margin-right: auto !important;
   font-size: 1.3rem !important;
   font-weight: 800 !important;
 }
+.stats-level {
+  width: 100%;
+  margin: 20px auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
+}
+
+.stats-level strong {
+  font-size: 2.8rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+}
+.stats-total-xp {
+  width: 100%;
+  margin: 20px auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+}
+
+.stats-total-xp strong {
+  font-size: 2.2rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+}
+.stats-total-xp {
+  width: 100%;
+  margin: 20px auto !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+}
+
+.stats-total-xp strong {
+  font-size: 2.2rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+}
+.stats-next-level-total {
+  width: 100%;
+  margin: 10px auto 5px !important;
+  text-align: center !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+}
+
+.stats-next-level-total strong {
+  color: #e53935 !important;
+  font-size: 1.3rem !important;
+  font-weight: 900 !important;
+}
+.reaction-stat {
+  width: 100%;
+  margin: 16px auto !important;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+}
+
+.reaction-stat strong {
+  font-size: 1.2rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+}
+.stats-motivation {
+  width: 100%;
+  margin: 5px auto 0;
+  text-align: center;
+  color: #e53935;
+  font-weight: 800;
+}
+
+.stats-motivation p {
+  margin: 3px auto;
+}
+
+.stats-final-message {
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
+  font-weight: 900 !important;
+}
+.reflex-training-page h2 {
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+
