@@ -252,8 +252,8 @@ if (roundNumber < 10) {
   console.log('🏁 TEST COMPLETATO 10/10')
 
   setTimeout(() => {
-    stopTest()
-  }, 1000)
+  stopTest(10, [...reactionTimes, elapsed])
+}, 1000)
 }
 
         
@@ -400,14 +400,12 @@ if (roundNumber < 10) {
 
   console.log('🏁 SESSIONE TERMINATA 10/10')
 
+  setTimeout(() => {
+  setIsTesting(false)
   isTestingRef.current = false
   recognitionShouldRunRef.current = false
-
-  setTimeout(() => {
-
-    setIsTesting(false)
-
-  }, 1000)
+  setSessionCompleted(true)
+}, 1000)
 
 }
   }, 6000)
@@ -469,7 +467,10 @@ setValidHits(0)
     setIsPreparing(true)
   }
 
-  const stopTest = () => {
+  const stopTest = (
+  finalValidHits = validHits,
+  finalReactionTimes = reactionTimes
+) => {
     isTestingRef.current = false
     recognitionShouldRunRef.current = false
 
@@ -494,15 +495,15 @@ setValidHits(0)
   clearTimeout(roundTimeoutRef.current)
   roundTimeoutRef.current = null
 }
-if (validHits === 10) {
+if (finalValidHits === 10) {
   setTotalXP((previous) => previous + 20)
 }  
-if (reactionTimes.length > 0) {
+if (finalReactionTimes.length > 0) {
   const average =
-    reactionTimes.reduce((sum, time) => sum + time, 0) /
-    reactionTimes.length
+    finalReactionTimes.reduce((sum, time) => sum + time, 0) /
+    finalReactionTimes.length
 
-  const best = Math.min(...reactionTimes)
+  const best = Math.min(...finalReactionTimes)
 
   localStorage.setItem('reactionAverage', String(Math.round(average)))
   localStorage.setItem('reactionBest', String(best))
