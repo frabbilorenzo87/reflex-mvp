@@ -246,6 +246,22 @@ function Academy() {
   const [zoomedImage, setZoomedImage] = useState(null)
   const [introAudio, setIntroAudio] = useState(null)
 const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+useEffect(() => {
+  return () => {
+    if (introAudio) {
+      introAudio.pause()
+      introAudio.currentTime = 0
+    }
+  }
+}, [introAudio])
+useEffect(() => {
+  if (selectedTechnique && introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+}, [selectedTechnique, introAudio])
 
 const toggleIntro = () => {
   if (introAudio) {

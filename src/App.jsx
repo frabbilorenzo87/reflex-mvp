@@ -34,6 +34,18 @@ const currentLevel = getLevel(totalXP)
 useEffect(() => {
   window.scrollTo(0, 0)
 }, [showAcademy])
+useEffect(() => {
+  if (!showAcademy && !showReflexTraining && !showReactionTraining && !showStatistiche) {
+    return
+  }
+
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+}, [showAcademy, showReflexTraining, showReactionTraining, showStatistiche])
 
 useEffect(() => {
   localStorage.setItem('reflexTotalXP', String(totalXP))
@@ -47,6 +59,7 @@ const toggleIntro = () => {
     introAudio.pause()
     introAudio.currentTime = 0
   }
+  
 
   if (isIntroPlaying) {
     setIntroAudio(null)
@@ -65,6 +78,7 @@ const toggleIntro = () => {
   setIntroAudio(audio)
   setIsIntroPlaying(true)
 }
+
 
 if (showAcademy) {
 

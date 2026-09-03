@@ -23,6 +23,14 @@ const [validHits, setValidHits] = useState(0)
   const [debugTranscript, setDebugTranscript] = useState('')
   const [introAudio, setIntroAudio] = useState(null)
 const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+useEffect(() => {
+  return () => {
+    if (introAudio) {
+      introAudio.pause()
+      introAudio.currentTime = 0
+    }
+  }
+}, [introAudio])
 
 const toggleIntro = () => {
   if (introAudio) {
@@ -432,6 +440,12 @@ if (roundNumber < 10) {
   }, [isTesting, roundNumber])
 
   const startTest = () => {
+    if (introAudio) {
+  introAudio.pause()
+  introAudio.currentTime = 0
+  setIntroAudio(null)
+  setIsIntroPlaying(false)
+}
     setReactionTime(null)
     setNoResponse(false)
     setCurrentCommand(null)

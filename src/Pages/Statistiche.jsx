@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 function Statistiche({
   onHome,
   onAcademy,
@@ -8,6 +8,15 @@ function Statistiche({
 }) {
   const [introAudio, setIntroAudio] = useState(null)
   const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+  useEffect(() => {
+  return () => {
+    if (introAudio) {
+      introAudio.pause()
+      introAudio.currentTime = 0
+    }
+  }
+}, [introAudio])
+  
 
   const toggleIntro = () => {
     if (introAudio) {

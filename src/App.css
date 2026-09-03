@@ -703,6 +703,8 @@ h1 span {
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+
 .reflex-duration-options button {
   min-width: 150px;
   min-height: 90px;
@@ -1103,6 +1105,9 @@ margin-right: auto !important;
 .reflex-training-page h2 {
   margin-top: 8px !important;
   margin-bottom: 10px !important;
+}
+.reflex-training-page .reflex-options h2 {
+  color: #ffffff !important;
 }
 
 

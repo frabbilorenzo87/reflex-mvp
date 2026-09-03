@@ -19,6 +19,14 @@ const [showGo, setShowGo] = useState(false)
 const [currentCommand, setCurrentCommand] = useState(null)
 const [introAudio, setIntroAudio] = useState(null)
 const [isIntroPlaying, setIsIntroPlaying] = useState(false)
+useEffect(() => {
+  return () => {
+    if (introAudio) {
+      introAudio.pause()
+      introAudio.currentTime = 0
+    }
+  }
+}, [introAudio])
 const toggleIntro = () => {
   if (introAudio) {
     introAudio.pause()
@@ -427,6 +435,13 @@ if (isPreparing) {
   type="button"
   disabled={!duration || !level}
   onClick={() => {
+  if (introAudio) {
+    introAudio.pause()
+    introAudio.currentTime = 0
+    setIntroAudio(null)
+    setIsIntroPlaying(false)
+  }
+
   setCountdown(5)
   setIsPreparing(true)
 }}
