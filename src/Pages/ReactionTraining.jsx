@@ -252,12 +252,7 @@ if (roundNumber < 10) {
   console.log('🏁 TEST COMPLETATO 10/10')
 
   setTimeout(() => {
-
-    setIsTesting(false)
-    isTestingRef.current = false
-    recognitionShouldRunRef.current = false
-    setSessionCompleted(true)
-
+    stopTest()
   }, 1000)
 }
 
