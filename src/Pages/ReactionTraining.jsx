@@ -343,10 +343,12 @@ setNoResponse(false)
       return
     }
 
-   const audio =
-  roundNumber === 1 && audioRef.current
-    ? audioRef.current
-    : new Audio(audioFile)
+   const audio = audioCacheRef.current[command]
+
+if (!audio) {
+  console.error('Audio non presente nella cache per:', command)
+  return
+}
 
 audio.preload = 'auto'
 audioRef.current = audio
