@@ -463,10 +463,20 @@ setValidHits(0)
     const firstAudioFile = audioFiles[firstCommand]
 
     if (firstAudioFile) {
-      const preloadAudio = new Audio(firstAudioFile)
-      preloadAudio.preload = 'auto'
-      preloadAudio.load()
-    }
+  const preloadAudio = new Audio(firstAudioFile)
+  preloadAudio.preload = 'auto'
+  preloadAudio.muted = true
+
+  preloadAudio.play()
+    .then(() => {
+      preloadAudio.pause()
+      preloadAudio.currentTime = 0
+      preloadAudio.muted = false
+    })
+    .catch(() => {
+      preloadAudio.muted = false
+    })
+}
 
     setIsPreparing(true)
   }
