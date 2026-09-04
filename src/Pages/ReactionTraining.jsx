@@ -60,6 +60,7 @@ const toggleIntro = () => {
   const startTimeRef = useRef(null)
   const audioRef = useRef(null)
   const firstCommandRef = useRef(null)
+  const audioCacheRef = useRef({})
 
   const isTestingRef = useRef(false)
   const recognitionShouldRunRef = useRef(false)
@@ -342,14 +343,17 @@ setNoResponse(false)
       return
     }
 
-    const audio =
+   const audio =
   roundNumber === 1 && audioRef.current
     ? audioRef.current
     : new Audio(audioFile)
 
 audio.preload = 'auto'
-audio.muted = false
 audioRef.current = audio
+
+if (roundNumber === 1) {
+  audio.muted = false
+}
 
     audio.onplay = () => {
   startTimeRef.current = performance.now()
@@ -476,6 +480,7 @@ setValidHits(0)
   preloadAudio.preload = 'auto'
   preloadAudio.load()
 
+  audioCacheRef.current[firstCommand] = preloadAudio
   audioRef.current = preloadAudio
 }
 
