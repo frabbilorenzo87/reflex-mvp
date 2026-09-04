@@ -475,13 +475,17 @@ setValidHits(0)
 
     const firstAudioFile = audioFiles[firstCommand]
 
-    if (firstAudioFile) {
-  const preloadAudio = new Audio(firstAudioFile)
-  preloadAudio.preload = 'auto'
-  preloadAudio.load()
+    audioCacheRef.current = {}
 
-  audioCacheRef.current[firstCommand] = preloadAudio
-  audioRef.current = preloadAudio
+Object.entries(audioFiles).forEach(([command, file]) => {
+  const audio = new Audio(file)
+  audio.preload = 'auto'
+  audio.load()
+  audioCacheRef.current[command] = audio
+})
+
+if (firstAudioFile) {
+  audioRef.current = audioCacheRef.current[firstCommand]
 }
 
     setIsPreparing(true)
