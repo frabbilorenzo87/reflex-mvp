@@ -59,6 +59,7 @@ const toggleIntro = () => {
   const recognitionRef = useRef(null)
   const startTimeRef = useRef(null)
   const audioRef = useRef(null)
+  const firstCommandRef = useRef(null)
 
   const isTestingRef = useRef(false)
   const recognitionShouldRunRef = useRef(false)
@@ -324,7 +325,10 @@ if (roundNumber < 10) {
   useEffect(() => {
     if (!isTesting) return
 
-    const command = getRandomCommand()
+    const command =
+  roundNumber === 1 && firstCommandRef.current
+    ? firstCommandRef.current
+    : getRandomCommand()
     const audioFile = audioFiles[command]
 
     setCurrentCommand(command)
@@ -338,10 +342,14 @@ setNoResponse(false)
       return
     }
 
-    const audio = new Audio(audioFile)
+    const audio =
+  roundNumber === 1 && audioRef.current
+    ? audioRef.current
+    : new Audio(audioFile)
 
-    audio.preload = 'auto'
-    audioRef.current = audio
+audio.preload = 'auto'
+audio.muted = false
+audioRef.current = audio
 
     audio.onplay = () => {
   startTimeRef.current = performance.now()
@@ -458,6 +466,7 @@ setValidHits(0)
 
 
     const firstCommand = getRandomCommand()
+    firstCommandRef.current = firstCommand
     setCurrentCommand(firstCommand)
 
     const firstAudioFile = audioFiles[firstCommand]
@@ -465,17 +474,9 @@ setValidHits(0)
     if (firstAudioFile) {
   const preloadAudio = new Audio(firstAudioFile)
   preloadAudio.preload = 'auto'
-  preloadAudio.muted = true
+  preloadAudio.load()
 
-  preloadAudio.play()
-    .then(() => {
-      preloadAudio.pause()
-      preloadAudio.currentTime = 0
-      preloadAudio.muted = false
-    })
-    .catch(() => {
-      preloadAudio.muted = false
-    })
+  audioRef.current = preloadAudio
 }
 
     setIsPreparing(true)
