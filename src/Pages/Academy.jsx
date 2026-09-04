@@ -27,6 +27,7 @@ import guardiaStep2Img from '../assets/techniques/guardia step 2.PNG'
 import guardiaStep3Img from '../assets/techniques/guardia step 3.PNG'
 
 import spostamentoImg from '../assets/techniques/spostamento.JPG'
+import logoImg from '../assets/logo.JPG'
 const categories = [
  {
   title: 'GUARDIA',
@@ -565,7 +566,14 @@ if (selectedTechnique?.name === 'Calcio destro') {
       <header className="academy-header">
   <p className="eyebrow">REFLEX ACADEMY</p>
 
+  <div className="page-title-with-logo">
+  <img
+    src={logoImg}
+    alt="Reflex"
+    className="page-title-logo"
+  />
   <h1>TECNICHE</h1>
+</div>
 
   <button
     className="intro-button"
@@ -608,7 +616,7 @@ if (selectedTechnique?.name === 'Calcio destro') {
                       })
                     }
                   >
-                    <h3>{technique.name}</h3>
+                    <h3 style={{ color: '#ffffff' }}>{technique.name}</h3>
 
                     <p>{technique.description}</p>
 

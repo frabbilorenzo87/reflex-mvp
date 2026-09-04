@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-
+import logoImg from '../assets/logo.JPG'
 function ReactionTraining({
   onHome,
   onAcademy,
@@ -252,8 +252,12 @@ if (roundNumber < 10) {
   console.log('🏁 TEST COMPLETATO 10/10')
 
   setTimeout(() => {
-  stopTest(10, [...reactionTimes, elapsed])
-}, 1000)
+    isTestingRef.current = false
+    recognitionShouldRunRef.current = false
+
+    setIsTesting(false)
+    setSessionCompleted(true)
+  }, 1000)
 }
 
         
@@ -655,7 +659,14 @@ setSessionCompleted(true)
           REFLEX REACTION
         </p>
 
-        <h1>REACTION TEST</h1>
+        <div className="page-title-with-logo">
+  <img
+    src={logoImg}
+    alt="Reflex"
+    className="page-title-logo"
+  />
+  <h1>REACTION TEST</h1>
+</div>
         <button
   className="intro-button"
   onClick={toggleIntro}

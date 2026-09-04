@@ -149,6 +149,7 @@ h1 span {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 42px;
   margin: 0 0 25px;
+  color: #ffffff;
 }
 
 .training-grid {
@@ -349,6 +350,7 @@ h1 span {
   font-size: clamp(42px, 7vw, 76px);
   line-height: 0.95;
   letter-spacing: -2px;
+  color: #e53935;
 }
 
 .academy-header > p:last-child {
@@ -397,6 +399,7 @@ h1 span {
   margin: 0 0 20px;
   font-size: 24px;
   letter-spacing: 1px;
+  color: #ffffff;
 }
 
 .technique-list {
@@ -415,6 +418,7 @@ h1 span {
 .technique-card h3 {
   margin: 0 0 6px;
   font-size: 17px;
+  color: #ffffff;
 }
 
 .technique-card p {
@@ -463,8 +467,8 @@ h1 span {
 .technique-card {
   width: 100%;
   text-align: left;
-  font-family: inherit;
-  color: inherit;
+  color: #ffffff;
+  
   cursor: pointer;
   appearance: none;
 }
@@ -1108,6 +1112,18 @@ margin-right: auto !important;
 }
 .reflex-training-page .reflex-options h2 {
   color: #ffffff !important;
+}
+.page-title-with-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.page-title-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
 }
 
 

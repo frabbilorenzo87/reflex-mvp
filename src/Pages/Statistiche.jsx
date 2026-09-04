@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import logoImg from '../assets/logo.JPG'
 function Statistiche({
   onHome,
   onAcademy,
@@ -82,7 +83,14 @@ const reactionBest = localStorage.getItem('reactionBest')
           REFLEX
         </p>
 
-        <h1>STATISTICHE</h1>
+        <div className="page-title-with-logo">
+  <img
+    src={logoImg}
+    alt="Reflex"
+    className="page-title-logo"
+  />
+  <h1>STATISTICHE</h1>
+</div>
         
         <button
           className="intro-button"

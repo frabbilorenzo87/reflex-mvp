@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-
+import logoImg from '../assets/logo.JPG'
 function ReflexTraining({
   onHome,
   onAcademy,
@@ -349,7 +349,14 @@ if (isPreparing) {
       <header className="academy-header">
         <p className="eyebrow">REFLEX TRAINING</p>
 
-        <h1>ALLENAMENTO</h1>
+        <div className="page-title-with-logo">
+  <img
+    src={logoImg}
+    alt="Reflex"
+    className="page-title-logo"
+  />
+  <h1>ALLENAMENTO</h1>
+</div>
         <button
   className="intro-button"
   onClick={toggleIntro}
