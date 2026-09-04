@@ -481,6 +481,7 @@ setValidHits(0)
 
 
     const firstCommand = getRandomCommand()
+    
     firstCommandRef.current = firstCommand
     setCurrentCommand(firstCommand)
 
@@ -499,7 +500,17 @@ if (firstAudioFile) {
   audioRef.current = audioCacheRef.current[firstCommand]
 }
 
-    setIsPreparing(true)
+const recognition = recognitionRef.current || setupRecognition()
+
+if (recognition) {
+  try {
+    recognition.start()
+    console.log('🎤 RICONOSCIMENTO AVVIATO DA START TEST')
+  } catch (error) {
+    console.log('Riconoscimento già attivo')
+  }
+}   
+setIsPreparing(true)
   }
 
   const stopTest = (
