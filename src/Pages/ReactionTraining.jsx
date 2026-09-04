@@ -164,12 +164,21 @@ const toggleIntro = () => {
       setDebugTranscript(transcript)
 
       // Ignoriamo qualsiasi voce fuori dalla finestra di reazione
-      if (
-        !isTestingRef.current ||
-        startTimeRef.current === null
-      ) {
-        continue
-      }
+      console.log(
+  '🔎 CONTROLLO HIT:',
+  JSON.stringify({
+    transcript,
+    isTesting: isTestingRef.current,
+    startTime: startTimeRef.current
+  })
+)
+
+if (
+  !isTestingRef.current ||
+  startTimeRef.current === null
+) {
+  continue
+}
 
       /*
        * RISPOSTA VALIDA:
