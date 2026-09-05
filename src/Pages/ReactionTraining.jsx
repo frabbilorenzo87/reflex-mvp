@@ -273,13 +273,7 @@ if (roundNumber < 10) {
 
         
 
-        try {
-          recognition.stop()
-        } catch (error) {
-          // nessun problema
-        }
-
-        return
+       return 
       }
     }
   }
