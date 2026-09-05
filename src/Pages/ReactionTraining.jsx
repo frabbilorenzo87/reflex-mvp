@@ -142,7 +142,7 @@ const toggleIntro = () => {
   const recognition = new SpeechRecognition()
 
   recognition.lang = 'it-IT'
-  recognition.continuous = true
+  recognition.continuous = false
   recognition.interimResults = false
   recognition.maxAlternatives = 5
 
