@@ -366,21 +366,7 @@ if (roundNumber === 1) {
   isTestingRef.current = true
   recognitionShouldRunRef.current = true
 
-  const recognition =
-    recognitionRef.current || setupRecognition()
-
-  if (recognition) {
-    try {
-      recognition.start()
-      console.log(
-        '🎤 MICROFONO AVVIATO CON LISANDRO'
-      )
-    } catch (error) {
-      console.log(
-        'Riconoscimento già attivo'
-      )
-    }
-  }
+  
 
   console.log(
     '⏱️ TIMER PARTITO CON LA VOCE DI LISANDRO'
@@ -430,8 +416,24 @@ if (roundNumber < 10) {
 }
 
     audio.onended = () => {
-      console.log('🔊 Audio terminato')
+  console.log('🔊 Audio terminato')
+
+  const recognition =
+    recognitionRef.current || setupRecognition()
+
+  if (recognition) {
+    try {
+      recognition.start()
+      console.log(
+        '🎤 MICROFONO AVVIATO DOPO LA VOCE DI LISANDRO'
+      )
+    } catch (error) {
+      console.log(
+        'Riconoscimento già attivo'
+      )
     }
+  }
+}
 
     audio.play().catch((error) => {
       console.error(
