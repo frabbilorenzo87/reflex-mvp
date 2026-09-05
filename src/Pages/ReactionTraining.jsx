@@ -400,11 +400,8 @@ if (roundNumber === 1) {
     isTestingRef.current = false
     recognitionShouldRunRef.current = false
 
-    try {
-      recognitionRef.current?.stop()
-    } catch (error) {
-      // nessun problema
-    }
+    // Non fermiamo il riconoscimento tra un round e l'altro.
+// Su iPhone Safari il riavvio dopo stop() può generare "aborted".
 
     roundTimeoutRef.current = null
 setNoResponse(true)
