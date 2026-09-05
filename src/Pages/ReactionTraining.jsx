@@ -234,7 +234,7 @@ if (
         // HIT valida: chiudiamo questa tecnica
 startTimeRef.current = null
 
-recognitionShouldRunRef.current = false
+
 
 if (roundTimeoutRef.current) {
   clearTimeout(roundTimeoutRef.current)
@@ -398,7 +398,7 @@ if (roundNumber === 1) {
 
     startTimeRef.current = null
     isTestingRef.current = false
-    recognitionShouldRunRef.current = false
+    
 
     // Non fermiamo il riconoscimento tra un round e l'altro.
 // Su iPhone Safari il riavvio dopo stop() può generare "aborted".
